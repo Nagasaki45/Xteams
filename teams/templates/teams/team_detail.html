@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title %}
+    {{ team.name }}
+    {% if user in team.managers.all %}
+        <a class="btn btn-default btn-lg btn-primary" href="{% url 'teams:manage' pk=team.pk %}">Manage</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div id="counters">
+    <span id="on_the_court_counter"></span><span id="arrived_counter"></span>
+</div>
+
+<form action="{% url 'teams:groups' pk=team.pk %}" class="form">
+    {% buttons %}
+        <button type="submit" class="btn btn-primary form-control">Create groups!</button>
+    {% endbuttons %}
+    {% bootstrap_form form %}
+</form>
+
+<div id="players">
+
+    <div class="list-group" id="on_the_court">
+        <a class="list-group-item active">On the court</a>
+        {% for player in on_the_court %}
+            <a class="list-group-item clearfix" id="{{ player.pk }}">
+                {{ player.name }}
+                <p class="to-home btn btn-xs btn-danger pull-right margins">Gone home</p>
+                <p class="to-bench btn btn-xs btn-warning pull-right margins">Move to bench</p>
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="list-group" id="on_the_bench">
+        <a class="list-group-item active">On the bench</a>
+        {% for player in on_the_bench %}
+            <a class="list-group-item list-group-item-warning clearfix" id="{{ player.pk }}">
+                {{ player.name }}
+                <p class="to-home btn btn-xs btn-danger pull-right margins">Gone home</p>
+                <p class="to-court btn btn-xs btn-success pull-right margins">Move to Court</p>
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="list-group" id="gone_home">
+        <a class="list-group-item active">Gone home</a>
+        {% for player in gone_home %}
+            <a class="list-group-item list-group-item-danger clearfix" id="{{ player.pk }}">
+                {{ player.name }}
+                <p class="to-bench btn btn-xs btn-warning pull-right margins">Move to bench</p>
+                <p class="to-court btn btn-xs btn-success pull-right margins">Move to Court</p>
+            </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/team_detail.css' %}">
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/change_player_state.js' %}"></script>
+{% endblock %}

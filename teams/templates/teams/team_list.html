@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Welcome to Xteams!
+{% endblock %}
+
+{% block content %}
+
+<div class="list-group" id="teams">
+    {% for team in user_teams %}
+        <a class="list-group-item" href="{{ team.get_absolute_url }}">
+            {{ team.name }}<span class="badge">Managed</span>
+        </a>
+    {% endfor %}
+    {% for team in rest_teams %}
+        <a class="list-group-item" href="{{ team.get_absolute_url }}">
+            {{ team.name }}
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}
