@@ -68,5 +68,8 @@
 
 {% block scripts %}
     {{ block.super }}
+    <script type="text/javascript">
+        $.cookie('csrftoken', '{% csrf_token%}');
+    </script>
     <script src="{% static 'js/change_player_state.js' %}"></script>
 {% endblock %}
