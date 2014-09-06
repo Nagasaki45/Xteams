@@ -5,7 +5,7 @@
 {% block title %}
     {{ team.name }}
     {% if user in team.managers.all %}
-        <a class="btn btn-default btn-lg btn-primary" href="{% url 'teams:manage' pk=team.pk %}">Manage</a>
+        <a class="btn btn-lg btn-primary" href="{% url 'teams:manage' pk=team.pk %}">Manage</a>
     {% endif %}
 {% endblock %}
 

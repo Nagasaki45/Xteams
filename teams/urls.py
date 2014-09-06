@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = patterns('',
     url(r'^$', views.team_list, name='list'),
+    url(r'^create/$', views.TeamCreate.as_view(), name='create'),
     url(r'^(?P<pk>\d+)/$', views.team_detail, name='detail'),
     url(r'^(?P<pk>\d+)/groups/$', views.groups, name='groups'),
     url(r'^(?P<pk>\d+)/manage/$', views.Manage.as_view(), name='manage'),

@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 from django.contrib import messages
 
 from braces.views import (JSONResponseMixin, AjaxResponseMixin,
-                          UserPassesTestMixin)
+                          UserPassesTestMixin, LoginRequiredMixin)
 from extra_views import InlineFormSetView
 
 from .models import PLAYING_STATES, Team, Player
@@ -23,6 +22,16 @@ def team_list(request):
     else:
         context = {'rest_teams': teams}
     return render(request, 'teams/team_list.html', context)
+
+
+class TeamCreate(LoginRequiredMixin, CreateView):
+    model = Team
+    fields = ['name']
+
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        form.instance.managers.add(self.request.user)
+        return result
 
 
 def team_detail(request, pk):
