@@ -72,10 +72,11 @@ def groups(request, pk):
                                 elements=players,
                                 key=lambda p: p.score,
                                 chance=chance)
-        return render(request, 'teams/groups.html', {'groups': groups})
     except grouper.GrouperError as e:
         messages.error(request, str(e))
         return redirect('teams:detail', pk=team.pk)
+    context = {'team': team, 'groups': groups}
+    return render(request, 'teams/groups.html', context)
 
 
 class Manage(UserPassesTestMixin, InlineFormSetView):
