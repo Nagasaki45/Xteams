@@ -20,9 +20,24 @@ Using Xteams, group managers can give scores to players in the management panel.
 First, run the initial requirements and local database setup:
 
 ```bash
-$ virtualenv xteams  # Using a Python virtualenv is highly recommended
+$ # Using a Python virtualenv is highly recommended
+$ virtualenv virtualenv -p python3 --no-site-packages
+$ source ./virtualenv/bin/activate
 $ pip install -r requirements.txt
 $ python manage.py syncdb
 ```
 
-Make sure you use Python 3.4 and you are ready to go :-)
+For the contact page to work you will also need to:
+
+```bash
+export ADMIN=yourname
+export ADMIN_EMAIL=your@email.com
+export EMAIL_HOST_USER=your_email_username
+export EMAIL_HOST_PASSWORD=your_email_password
+```
+
+Ideally, you can append the following to the bottom of your virtualenv activate script. (found in `virtualenv/bin/activate`).
+
+If you are on gmail the above is just enough, otherwise take a look on the settings file and apply necessary changes.
+
+You are ready to go :-)
