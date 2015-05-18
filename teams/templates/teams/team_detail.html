@@ -22,9 +22,9 @@
     {% bootstrap_form form %}
 </form>
 
-<div id="players">
+<div id="players" class="row">
 
-    <div class="list-group" id="on_the_court">
+    <div class="col-md-4 list-group" id="on_the_court">
         <a class="list-group-item active">On the court</a>
         {% for player in on_the_court %}
             <a class="list-group-item clearfix" id="{{ player.pk }}">
@@ -35,7 +35,7 @@
         {% endfor %}
     </div>
 
-    <div class="list-group" id="on_the_bench">
+    <div class="col-md-4 list-group" id="on_the_bench">
         <a class="list-group-item active">On the bench</a>
         {% for player in on_the_bench %}
             <a class="list-group-item list-group-item-warning clearfix" id="{{ player.pk }}">
@@ -46,7 +46,7 @@
         {% endfor %}
     </div>
 
-    <div class="list-group" id="gone_home">
+    <div class="col-md-4 list-group" id="gone_home">
         <a class="list-group-item active">Gone home</a>
         {% for player in gone_home %}
             <a class="list-group-item list-group-item-danger clearfix" id="{{ player.pk }}">
