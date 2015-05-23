@@ -9,13 +9,15 @@
 <p>
 	<a class="btn btn-primary form-control" href="javascript:history.go(0)">Reshuffle</a>
 </p>
-{% for group in groups %}
-	<div class="list-group">
-		<a class="list-group-item active">Group {{ forloop.counter }}</a>
-		{% for player in group %}
-			<a class="list-group-item">{{ player.name }}</a>
-		{% endfor %}
-	</div>
-{% endfor %}
+<div class="row" id="players">
+    {% for group in groups %}
+        <div class="col-lg-3 col-md-4 col-sm-12 list-group">
+            <a class="list-group-item active">Group {{ forloop.counter }}</a>
+            {% for player in group %}
+                <a class="list-group-item">{{ player.name }}</a>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
