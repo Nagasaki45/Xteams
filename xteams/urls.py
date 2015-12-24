@@ -1,6 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf import settings
 from django.views.generic.base import TemplateView
+from django.contrib.auth.views import login, logout
 
 from django.contrib import admin
 admin.autodiscover()
@@ -8,18 +9,13 @@ admin.autodiscover()
 import teams.urls
 import core.views
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # accounts
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
-    url(r'^accounts/logout/$',
-        'django.contrib.auth.views.logout',
-        {'next_page': settings.LOGIN_REDIRECT_URL},
-        name='logout'),
-    url(r'^accounts/register/$',
-        core.views.Register.as_view(),
-        name='register'),
+    url(r'^accounts/login/$', login, name='login'),
+    url(r'^accounts/logout/$', logout, {'next_page': settings.LOGIN_REDIRECT_URL}, name='logout'),
+    url(r'^accounts/register/$', core.views.Register.as_view(), name='register'),
 
     # contact
     url(r'^contact/$', core.views.Contact.as_view(), name='contact'),
@@ -30,4 +26,4 @@ urlpatterns = patterns('',
         name='about'),
 
     url(r'^', include(teams.urls.urlpatterns, namespace='teams')),
-)
+]

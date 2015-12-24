@@ -46,8 +46,7 @@ class Player(models.Model):
     name = models.CharField(max_length=50)
     team = models.ForeignKey(Team)
     score = models.FloatField()
-    state = models.IntegerField(max_length=2,
-                                choices=PLAYING_STATE_CHOICES,
+    state = models.IntegerField(choices=PLAYING_STATE_CHOICES,
                                 default=PLAYING_STATES['gone_home'])
 
     class Meta:

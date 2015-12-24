@@ -1,8 +1,8 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 from . import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', views.team_list, name='list'),
     url(r'^create/$', views.TeamCreate.as_view(), name='create'),
     url(r'^(?P<pk>\d+)/$', views.team_detail, name='detail'),
@@ -11,4 +11,4 @@ urlpatterns = patterns('',
 
     # AJAX views
     url(r'^change-state/$', views.ChangeState.as_view(), name='change_state'),
-)
+]
