@@ -49,3 +49,11 @@ You are ready to go, run:
 $ python manage.py createsuperuser  # optionally
 $ python manage.py runserver
 ```
+
+## Production
+
+Run in production using `docker-compose -f docker-compose-prod.yml up` (consider using `-d` flag for running in the background).
+
+It will configure the following docer containers: Nginx http server -> webapp (running with gunicorn) -> postgres db.
+
+The webapp collect static files into a volume shared with the Nginx container for the second to serve static files directly.

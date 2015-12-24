@@ -1,18 +1,14 @@
+from random import SystemRandom
 from .base import *
 
-import os
+KEY_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+SECRET_KEY = ''.join([SystemRandom().choice(KEY_CHARS) for i in range(50)])
 
-SECRET_KEY = os.environ['SECRET_KEY']
-
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
-
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# The db docker container
+DATABASES['default']['HOST'] = 'db'
 
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-# Static asset configuration
-STATIC_ROOT = 'staticfiles'
+# Collect static to a mounted volume
+STATIC_ROOT = '/staticfiles'
