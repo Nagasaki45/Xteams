@@ -24,7 +24,7 @@ $ # Using a Python virtualenv is highly recommended
 $ virtualenv virtualenv -p python3 --no-site-packages
 $ source ./virtualenv/bin/activate
 $ pip install -r requirements.txt
-$ python manage.py syncdb
+$ python manage.py migrate
 ```
 
 For the contact page to work you will also need to:
@@ -40,4 +40,9 @@ Ideally, you can append the following to the bottom of your virtualenv activate 
 
 If you are on gmail the above is just enough, otherwise take a look on the settings file and apply necessary changes.
 
-You are ready to go :-)
+You are ready to go, run:
+
+```bash
+$ python manage.py createsuperuser  # optionally
+$ python manage.py runserver
+```
