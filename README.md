@@ -17,6 +17,8 @@ Using Xteams, group managers can give scores to players in the management panel.
 
 ## Development
 
+Instead of global postgres installation I'm using postgres in a docker container in development. So make sure you have docker and docker-compose available on your dev machine.
+
 First, run the initial requirements and local database setup:
 
 ```bash
@@ -24,6 +26,7 @@ $ # Using a Python virtualenv is highly recommended
 $ virtualenv virtualenv -p python3 --no-site-packages
 $ source ./virtualenv/bin/activate
 $ pip install -r requirements.txt
+$ docker-compose up -d  # to spin postgres
 $ python manage.py migrate
 ```
 
