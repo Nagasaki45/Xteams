@@ -1,0 +1,20 @@
+nginx:
+  build: ./nginx
+  volumes_from:
+    - web
+  ports:
+    - "8000:8000"
+  links:
+    - web
+  restart: always
+
+web:
+  build: .
+  command: gunicorn xteams.wsgi -b 0.0.0.0:8000
+  links:
+    - db
+  restart: always
+
+db:
+  image: postgres
+  restart: always

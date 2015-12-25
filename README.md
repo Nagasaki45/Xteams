@@ -50,10 +50,50 @@ $ python manage.py createsuperuser  # optionally
 $ python manage.py runserver
 ```
 
-## Production
+## Staging
 
-Run in production using `docker-compose -f docker-compose-prod.yml up` (consider using `-d` flag for running in the background).
+Staging and production are almost the same. The only difference is that in production Nginx is listening on port 9768 (random number) instead of port 8000, to let the Nginx on the host route traffic to all of the apps on the host.
 
-It will configure the following docer containers: Nginx http server -> webapp (running with gunicorn) -> postgres db.
+Run the staging with:
+
+```bash
+$ docker-compose -f docker-compose-stage.yml up  # consider using -d flag for running in the background
+```
+
+It will configure the following docker containers: Nginx http server -> webapp (running with gunicorn) -> postgres db.
 
 The webapp collect static files into a volume shared with the Nginx container for the second to serve static files directly.
+
+## Production
+
+Start by reading the staging instructions above :-)
+
+Now:
+
+```bash
+docker-compose -f docker-compose-stage.yml -f docker-compose-prod.yml up -d
+```
+
+Set the host Nginx to route traffic to the Nginx container. Something like this:
+
+```
+# /etc/nginx/sites-available/xteams.nagasaki45.com
+
+server {
+    listen 80;
+    server_name xteams.nagasaki45.com;
+
+    location / {
+        proxy_set_header Host xteams.nagasaki45.com;
+        proxy_pass http://localhost:9768;
+    }
+}
+```
+
+Add a link to `sites-enabled`:
+
+```bash
+ln -s /etc/nginx/sites-available/xteams.nagasaki45.com /etc/nginx/sites-enabled/xteams.nagasaki45.com
+```
+
+Restart your host Nginx with `service nginx restart`.
