@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     'core',
     'teams',
+    'bot',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -134,3 +135,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
+
+
+# Telegram bot
+TELEGRAM_BOT_TOKEN = os.environ['TELEGRAM_BOT_TOKEN']

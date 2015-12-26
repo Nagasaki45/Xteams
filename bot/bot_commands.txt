@@ -1,0 +1,6 @@
+court - Move a player to the court
+bench - Move a player to the bench
+gone - Mark a player as not playing
+setgroup - Set Xteams group
+list - List players on court and on the bench
+teams - Generate teams
