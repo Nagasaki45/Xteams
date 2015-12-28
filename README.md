@@ -53,9 +53,7 @@ $ python manage.py runserver
 
 ## Staging
 
-Staging and production are almost the same. The only difference is that in production Nginx is listening on port 9768 (random number) instead of port 8000, to let the Nginx on the host route traffic to all of the apps on the host.
-
-Run the staging with:
+Run the staging environment on port 8000 with:
 
 ```bash
 $ docker-compose -f docker-compose-stage.yml up  # consider using -d flag for running in the background
@@ -63,13 +61,13 @@ $ docker-compose -f docker-compose-stage.yml up  # consider using -d flag for ru
 
 It will configure the following docker containers: Nginx http server -> webapp (running with gunicorn) -> postgres db.
 
-The webapp collect static files into a volume shared with the Nginx container for the second to serve static files directly.
+The webapp collects static files into a volume shared with the Nginx container for the second to serve static files directly.
 
 ## Production
 
-Start by reading the staging instructions above :-)
+Staging and production are almost the same. The only difference is that in production Nginx is listening on port 9768 (random number), to let the Nginx on the host route traffic to all of the apps on the host.
 
-Now:
+Run:
 
 ```bash
 docker-compose -f docker-compose-stage.yml -f docker-compose-prod.yml up -d
