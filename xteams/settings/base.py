@@ -129,8 +129,6 @@ LOGIN_REDIRECT_URL = '/'
 
 ADMINS = ((os.environ.get('ADMIN'), os.environ.get('ADMIN_EMAIL')),)
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = 587
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+MAILGUN_ACCESS_KEY = os.environ.get('MAILGUN_ACCESS_KEY')
+MAILGUN_SERVER_NAME = os.environ.get('MAILGUN_SERVER_NAME')

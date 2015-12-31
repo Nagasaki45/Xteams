@@ -31,25 +31,26 @@ $ docker-compose up -d  # to spin postgres
 $ python manage.py migrate
 ```
 
-For the contact page to work you will also need to:
-
-```bash
-export ADMIN=yourname
-export ADMIN_EMAIL=your@email.com
-export EMAIL_HOST_USER=your_email_username
-export EMAIL_HOST_PASSWORD=your_email_password
-```
-
-Ideally, you can append the following to the bottom of your virtualenv activate script. (found in `virtualenv/bin/activate`).
-
-If you are on gmail the above is just enough, otherwise take a look on the settings file and apply necessary changes.
-
 You are ready to go, run:
 
 ```bash
 $ python manage.py createsuperuser  # optionally
 $ python manage.py runserver
 ```
+
+### env_file
+
+Secrets are kept in a file in the root directory of the project, named `env_file`. Create one and populate it with:
+
+```
+ADMIN=<Your name>
+ADMIN_EMAIL=<Your email>
+MAILGUN_ACCESS_KEY=<key>
+MAILGUN_SERVER_NAME=<domain>
+```
+
+docker-compose will use this env_file automatically (notice the format, there are no exports).
+Although it's possible to run without it in development, you probably want to export each line. If you use some kind of autoenv the `.env` file will export each line for you. Otherwise you can source the `.env` file manually, or export manually, as you prefer.
 
 ## Staging
 
