@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<a href="{{ team.get_absolute_url }}">{{ team.name }}</a> suggested groups
+<h1>
+		<a href="{{ team.get_absolute_url }}">{{ team.name }}</a> suggested groups
+</h1>
 {% endblock %}
 
 {% block content %}

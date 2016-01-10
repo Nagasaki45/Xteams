@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Welcome to Xteams!
-    {% if user.is_authenticated %}
-        <p>
-            <a class="btn btn-primary" href="{% url 'teams:create' %}">Create new team</a>
-        </p>
-    {% endif %}
+<h1>Welcome to Xteams!</h1>
+<p class="lead"><em>Create teams automatically based on discrete scores of the players</em></p>
+{% if user.is_authenticated %}
+    <p>
+        <a class="btn btn-primary" href="{% url 'teams:create' %}">Create new team</a>
+    </p>
+{% endif %}
 {% endblock %}
 
 {% block content %}
