@@ -66,12 +66,10 @@ def groups(request, pk):
         team.player_set.filter(state=PLAYING_STATES['on_the_court'])
     )
     num_of_groups = int(request.GET['num_of_groups'])
-    chance = float(request.GET['chance'])
     try:
         groups = grouper.create(num_of_groups=num_of_groups,
                                 elements=players,
-                                key=lambda p: p.score,
-                                chance=chance)
+                                key=lambda p: p.score)
     except grouper.GrouperError as e:
         messages.error(request, str(e))
         return redirect('teams:detail', pk=team.pk)
