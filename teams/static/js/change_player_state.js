@@ -30,64 +30,62 @@ $(document).ready(function() {
                 arrived = on_the_court + on_the_bench;
             $('#on_the_court_counter').text(on_the_court);
             $('#arrived_counter').text(arrived);
-        }
+        },
         moveTo = function(playerPk, newState) {
+            var element = $('#' + playerPk);
             $.ajax({
                 url: '/change-state/',
                 data: {player_pk: playerPk, new_state: newState},
                 type: 'POST',
                 beforeSend: function(request) {
                     request.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-                },
-                success: function(json) {
-                    var element = $('#' + playerPk);
-                    // move it to the new place
-                    element.appendTo($('#' + newState));
-                    // remove its buttons
-                    element.children().remove();
-                    // remove all unique classes
-                    element.removeClass('list-group-item-danger');
-                    element.removeClass('list-group-item-warning');
-                    // add new buttons and classes
-                    if (newState == 'on_the_court') {
-                        $(moveToHomeButton)
-                        .on('click', function() {
-                            moveTo($(this).parent().attr('id'), 'gone_home')
-                        })
-                        .appendTo(element);
-                        $(moveToBenchButton)
-                        .on('click', function() {
-                            moveTo($(this).parent().attr('id'), 'on_the_bench')
-                        })
-                        .appendTo(element);
-                    } else if (newState == 'on_the_bench') {
-                        element.addClass('list-group-item-warning');
-                        $(moveToHomeButton)
-                        .on('click', function() {
-                            moveTo($(this).parent().attr('id'), 'gone_home')
-                        })
-                        .appendTo(element);
-                        $(moveToCourtButton)
-                        .on('click', function() {
-                            moveTo($(this).parent().attr('id'), 'on_the_court')
-                        })
-                        .appendTo(element);
-                    } else if (newState == 'gone_home') {
-                        element.addClass('list-group-item-danger');
-                        $(moveToBenchButton)
-                        .on('click', function() {
-                            moveTo($(this).parent().attr('id'), 'on_the_bench')
-                        })
-                        .appendTo(element);
-                        $(moveToCourtButton)
-                        .on('click', function() {
-                            moveTo($(this).parent().attr('id'), 'on_the_court')
-                        })
-                        .appendTo(element);
-                    }
-                    setCounters();
                 }
             });
+            // move it to the new place
+            element.appendTo($('#' + newState));
+            // remove its buttons
+            element.children().remove();
+            // remove all unique classes
+            element.removeClass('list-group-item-danger');
+            element.removeClass('list-group-item-warning');
+            // add new buttons and classes
+            if (newState == 'on_the_court') {
+                $(moveToHomeButton)
+                .on('click', function() {
+                    moveTo($(this).parent().attr('id'), 'gone_home')
+                })
+                .appendTo(element);
+                $(moveToBenchButton)
+                .on('click', function() {
+                    moveTo($(this).parent().attr('id'), 'on_the_bench')
+                })
+                .appendTo(element);
+            } else if (newState == 'on_the_bench') {
+                element.addClass('list-group-item-warning');
+                $(moveToHomeButton)
+                .on('click', function() {
+                    moveTo($(this).parent().attr('id'), 'gone_home')
+                })
+                .appendTo(element);
+                $(moveToCourtButton)
+                .on('click', function() {
+                    moveTo($(this).parent().attr('id'), 'on_the_court')
+                })
+                .appendTo(element);
+            } else if (newState == 'gone_home') {
+                element.addClass('list-group-item-danger');
+                $(moveToBenchButton)
+                .on('click', function() {
+                    moveTo($(this).parent().attr('id'), 'on_the_bench')
+                })
+                .appendTo(element);
+                $(moveToCourtButton)
+                .on('click', function() {
+                    moveTo($(this).parent().attr('id'), 'on_the_court')
+                })
+                .appendTo(element);
+            }
+            setCounters();
         };
 
     $('.to-court').on('click', function() {
