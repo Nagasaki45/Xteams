@@ -46,7 +46,7 @@
     </div><!-- /.navbar-collapse -->
 </nav>
 
-<div class="container">
+<div class="container" id="app">
 
     <div class="text-center">
     {% block title %}
@@ -62,6 +62,7 @@
 
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 <script src="{% static 'js/jquery.cookie.js' %}"></script>
+<script src="{% static 'js/vue.min.js' %}"></script>
 {% bootstrap_javascript %}
 {% block scripts %}
 {% endblock %}

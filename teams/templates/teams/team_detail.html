@@ -13,9 +13,11 @@
 
 {% block content %}
 
+{% verbatim %}
 <div id="counters">
-    <span id="on_the_court_counter"></span><span id="arrived_counter"></span>
+    <span>{{ on_the_court_counter }}</span> <span>{{ arrived_counter }}</span>
 </div>
+{% endverbatim %}
 
 <form action="{% url 'teams:groups' pk=team.pk %}" class="form">
     {% buttons %}
@@ -26,38 +28,24 @@
 
 <div id="players" class="row">
 
-    <div class="col-md-4 list-group" id="on_the_court">
-        <a class="list-group-item active">On the court</a>
-        {% for player in on_the_court %}
-            <a class="list-group-item clearfix" id="{{ player.pk }}">
-                {{ player.name }}
-                <p class="to-home btn btn-xs btn-danger pull-right margins">Gone home</p>
-                <p class="to-bench btn btn-xs btn-warning pull-right margins">Move to bench</p>
-            </a>
-        {% endfor %}
+    {% verbatim %}
+    <div v-for="list in lists">
+        <div class="col-md-4 list-group" id="{{ list.id }}">
+            <a class="list-group-item active">{{ list.name }}</a>
+            <div v-for="player in list.players">
+                <a class="{{ list.class }} list-group-item clearfix" id="{{ player.pk }}">
+                    {{ player.name }}
+                    <span v-for="button in list.buttons">
+                        <p v-on:click="moveTo(player, list.id, button.newState)"
+                           class="{{ button.class }} btn btn-xs pull-right margins">
+                          {{ button.text }}
+                        </p>
+                    </span>
+                </a>
+            </div>
+        </div>
     </div>
-
-    <div class="col-md-4 list-group" id="on_the_bench">
-        <a class="list-group-item active">On the bench</a>
-        {% for player in on_the_bench %}
-            <a class="list-group-item list-group-item-warning clearfix" id="{{ player.pk }}">
-                {{ player.name }}
-                <p class="to-home btn btn-xs btn-danger pull-right margins">Gone home</p>
-                <p class="to-court btn btn-xs btn-success pull-right margins">Move to Court</p>
-            </a>
-        {% endfor %}
-    </div>
-
-    <div class="col-md-4 list-group" id="gone_home">
-        <a class="list-group-item active">Gone home</a>
-        {% for player in gone_home %}
-            <a class="list-group-item list-group-item-danger clearfix" id="{{ player.pk }}">
-                {{ player.name }}
-                <p class="to-bench btn btn-xs btn-warning pull-right margins">Move to bench</p>
-                <p class="to-court btn btn-xs btn-success pull-right margins">Move to Court</p>
-            </a>
-        {% endfor %}
-    </div>
+    {% endverbatim %}
 
 </div>
 
@@ -71,7 +59,23 @@
 {% block scripts %}
     {{ block.super }}
     <script type="text/javascript">
-        $.cookie('csrftoken', '{% csrf_token%}');
+        var starting_players = {
+          on_the_court: [
+            {% for player in on_the_court %}
+                { pk: {{ player.pk }}, name: "{{ player.name }}" },
+            {% endfor %}
+          ],
+          on_the_bench: [
+            {% for player in on_the_bench %}
+                { pk: {{ player.pk }}, name: "{{ player.name }}" },
+            {% endfor %}
+          ],
+          gone_home: [
+            {% for player in gone_home %}
+                { pk: {{ player.pk }}, name: "{{ player.name }}" },
+            {% endfor %}
+          ]
+        };
     </script>
     <script src="{% static 'js/change_player_state.js' %}"></script>
 {% endblock %}
