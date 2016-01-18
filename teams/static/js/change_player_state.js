@@ -64,19 +64,11 @@ new Vue({
   },
   methods: {
     moveTo: function (player, oldState, newState) {
-      var that = this;
-      // Remove the player from the current list
-      $.each(that.lists, function(i) {
-        if (that.lists[i].id === oldState) {
-          that.lists[i].players = that.lists[i].players.filter(function (p) {
-            return p.pk !== player.pk;
-          });
-        }
-        // Add the player to the new list
-        if (that.lists[i].id === newState) {
-          that.lists[i].players.push(player);
-        }
-      });
+      var oldList = _.find(this.lists, { id: oldState }),
+          newList = _.find(this.lists, { id: newState }),
+          indexInOld = oldList.players.indexOf(player);
+      oldList.players.splice(indexInOld, 1)
+      newList.players.push(player);
 
       $.ajax({
         url: '/change-state/',
