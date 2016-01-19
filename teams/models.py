@@ -50,5 +50,5 @@ class Player(models.Model):
                                 default=PLAYING_STATES['gone_home'])
 
     class Meta:
-        unique_together = ('team', 'name')
-        ordering = ('state', 'name')
+        unique_together = ['team', 'name']
+        ordering = ['name']
