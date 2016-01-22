@@ -2,7 +2,7 @@
 
 {% block title %}
 <h1>
-		<a href="{{ team.get_absolute_url }}">{{ team.name }}</a> suggested groups
+		<a href="{{ team.get_absolute_url }}">{{ team.name }}</a> suggested teams
 </h1>
 {% endblock %}
 
@@ -14,7 +14,7 @@
 <div class="row" id="players">
     {% for group in groups %}
         <div class="col-lg-3 col-md-4 col-sm-12 list-group">
-            <a class="list-group-item active">Group {{ forloop.counter }}</a>
+            <a class="list-group-item active">Team {{ forloop.counter }}</a>
             {% for player in group %}
                 <a class="list-group-item">{{ player.name }}</a>
             {% endfor %}

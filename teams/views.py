@@ -65,7 +65,7 @@ def groups(request, pk):
     players = list(
         team.player_set.filter(state=PLAYING_STATES['on_the_court'])
     )
-    num_of_groups = int(request.GET.get('num_of_groups', 2))
+    num_of_groups = int(request.GET.get('num_of_teams', 2))
     try:
         groups = grouper.create(num_of_groups=num_of_groups,
                                 elements=players,

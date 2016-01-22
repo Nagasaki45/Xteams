@@ -2,7 +2,7 @@
 {% load bootstrap3 %}
 
 {% block title %}
-    <h1>New team</h1>
+    <h1>New group</h1>
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
-        <button type="submit" class="btn btn-primary form-control">Create team!</button>
+        <button type="submit" class="btn btn-primary form-control">Add group!</button>
     {% endbuttons %}
 </form>
 {% endblock %}

@@ -5,4 +5,4 @@ from . import grouper
 
 
 class GameForm(forms.Form):
-    num_of_groups = forms.IntegerField(min_value=2, initial=2)
+    num_of_teams = forms.IntegerField(min_value=2, initial=2)
