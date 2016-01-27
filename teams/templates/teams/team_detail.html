@@ -30,10 +30,10 @@
 
     {% verbatim %}
     <div v-for="list in lists">
-        <div class="col-md-4 list-group" id="{{ list.id }}">
+        <div class="col-md-4 list-group">
             <a class="list-group-item active">{{ list.name }}</a>
             <div v-for="player in list.players | orderBy 'name'">
-                <a class="{{ list.class }} list-group-item clearfix" id="{{ player.pk }}">
+                <a class="{{ list.class }} list-group-item clearfix">
                     {{ player.name }}
                     <span v-for="button in list.buttons">
                         <p v-on:click="moveTo(player, list.id, button.newState)"
