@@ -1,24 +1,3 @@
-#counters {
-    /* positioning */
-    position: fixed;
-    top: 55px;
-    left: 5px;
-    z-index: 99;
-
-    /* background */
-    background-image: url('/static/images/counters.png');
-    width: 70px;
-    height: 70px;
-    background-size: contain;
-
-    /* text */
-    font-family: Courier;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 70px;
-    font-size: 20px;
-}
-
 .margins {
     margin-right: 2px;
     margin-left: 2px;

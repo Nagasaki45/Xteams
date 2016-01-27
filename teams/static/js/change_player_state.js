@@ -55,12 +55,9 @@ new Vue({
       }
     ]
   },
-  computed: {
-    on_the_court_counter: function () {
-      return this.lists[0].players.length;
-    },
-    arrived_counter: function() {
-      return this.on_the_court_counter + this.lists[1].players.length;
+  filters: {
+    length: function(array) {
+      return array.length;
     }
   },
   methods: {
