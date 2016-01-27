@@ -26,6 +26,7 @@ new Vue({
       {
         id: 'on_the_court',
         name: 'On the court',
+        color: 'green',
         players: starting_players.on_the_court,
         buttons: [
           { class: 'btn-danger', newState: 'gone_home', text: 'Gone home' },
@@ -35,7 +36,7 @@ new Vue({
       {
         id: 'on_the_bench',
         name: 'On the bench',
-        class: 'list-group-item-warning',
+        color: 'orange',
         players: starting_players.on_the_bench,
         buttons: [
           { class: 'btn-danger', newState: 'gone_home', text: 'Gone home' },
@@ -45,7 +46,7 @@ new Vue({
       {
         id: 'gone_home',
         name: 'Gone home',
-        class: 'list-group-item-danger',
+        color: 'red',
         players: starting_players.gone_home,
         buttons: [
           { class: 'btn-warning', newState: 'on_the_bench', text: 'Move to bench' },

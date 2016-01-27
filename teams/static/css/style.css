@@ -27,3 +27,19 @@
 #players {
     margin-left: 0px;
 }
+
+/* list headers, based on bootstrap buttons colors */
+.list-group-item.active.green {
+    background-color: #5CB85C;
+    border-color: #4CAE4C;
+}
+
+.list-group-item.active.orange {
+    background-color: #F0AD4E;
+    border-color: #EEA236;
+}
+
+.list-group-item.active.red {
+    background-color: #D9534F;
+    border-color: #D43F3A;
+}
