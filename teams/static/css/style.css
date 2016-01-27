@@ -19,14 +19,11 @@
     font-size: 20px;
 }
 
-#on_the_court_counter {
-    position: absolute;
-    left: 0px;
-    width: 35px;
+.margins {
+    margin-right: 2px;
+    margin-left: 2px;
 }
 
-#arrived_counter {
-    position: absolute;
-    right: 0px;
-    width: 35px;
+#players {
+    margin-left: 0px;
 }
