@@ -60,6 +60,13 @@ new Vue({
       return array.length;
     }
   },
+  transitions: {
+    slide: {
+      css: false,
+      enter: function(el, done) { $(el).hide().slideDown(200, done); },
+      leave: function(el, done) { $(el).slideUp(200, done); }
+    }
+  },
   methods: {
     moveTo: function (player, oldState, newState) {
       var oldList = _.find(this.lists, { id: oldState }),

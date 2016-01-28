@@ -29,7 +29,7 @@
                 {{ list.name }}
                 <span class="badge">{{ list.players | length }} players</span>
             </a>
-            <a v-for="player in list.players | orderBy 'name'" class="list-group-item clearfix">
+            <a v-for="player in list.players | orderBy 'name'" transition="slide" class="list-group-item clearfix">
                 {{ player.name }}
                 <span v-for="button in list.buttons">
                     <p v-on:click="moveTo(player, list.id, button.newState)"
