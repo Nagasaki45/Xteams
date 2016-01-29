@@ -27,7 +27,7 @@
         <div class="col-md-4 list-group">
             <a class="list-group-item active {{ list.color }}">
                 {{ list.name }}
-                <span class="badge">{{ list.players | length }} players</span>
+                <span class="badge">{{ list.players | length }} {{ list.players | length | pluralize 'player' }}</span>
             </a>
             <a v-for="player in list.players | orderBy 'name'" transition="slide" class="list-group-item clearfix">
                 {{ player.name }}
