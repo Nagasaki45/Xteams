@@ -52,29 +52,19 @@ MAILGUN_SERVER_NAME=<domain>
 docker-compose will use this env_file automatically (notice the format, there are no exports).
 Although it's possible to run without it in development, you probably want to export each line. If you use some kind of autoenv the `.env` file will export each line for you. Otherwise you can source the `.env` file manually, or export manually, as you prefer.
 
-## Staging
+## Production / staging
 
-Run the staging environment on port 8000 with:
+Run the production environment on port 9768 (random number, to allow multiple apps on the same server) with:
 
 ```bash
-$ docker-compose -f docker-compose-stage.yml up  # consider using -d flag for running in the background
+$ docker-compose -f docker-compose-prod.yml up -d
 ```
 
 It will configure the following docker containers: Nginx http server -> webapp (running with gunicorn) -> postgres db.
 
 The webapp collects static files into a volume shared with the Nginx container for the second to serve static files directly.
 
-## Production
-
-Staging and production are almost the same. The only difference is that in production Nginx is listening on port 9768 (random number), to let the Nginx on the host route traffic to all of the apps on the host.
-
-Run:
-
-```bash
-docker-compose -f docker-compose-stage.yml -f docker-compose-prod.yml up -d
-```
-
-Set the host Nginx to route traffic to the Nginx container. Something like this:
+You can set the Nginx on the host to route traffic to the Nginx container with:
 
 ```
 # /etc/nginx/sites-available/xteams.nagasaki45.com
