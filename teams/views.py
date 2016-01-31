@@ -18,6 +18,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.views.generic.edit import CreateView
 from django.contrib import messages
+from django.http import HttpResponseBadRequest
 
 from braces.views import (JSONResponseMixin, AjaxResponseMixin,
                           UserPassesTestMixin, LoginRequiredMixin)
@@ -65,7 +66,10 @@ def groups(request, pk):
     players = list(
         team.player_set.filter(state=PLAYING_STATES['on_the_court'])
     )
-    num_of_groups = int(request.GET.get('num_of_teams', 2))
+    try:
+        num_of_groups = int(request.GET.get('num_of_teams', 2))
+    except ValueError:
+        raise HttpResponseBadRequest('Ilegal num_of_teams URL parameter')
     try:
         groups = grouper.create(num_of_groups=num_of_groups,
                                 elements=players,
