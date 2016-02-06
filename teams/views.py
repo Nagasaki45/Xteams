@@ -69,7 +69,7 @@ def groups(request, pk):
     try:
         num_of_groups = int(request.GET.get('num_of_teams', 2))
     except ValueError:
-        raise HttpResponseBadRequest('Ilegal num_of_teams URL parameter')
+        return HttpResponseBadRequest('Ilegal num_of_teams URL parameter')
     try:
         groups = grouper.create(num_of_groups=num_of_groups,
                                 elements=players,
