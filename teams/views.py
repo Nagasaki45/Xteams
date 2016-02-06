@@ -67,7 +67,9 @@ def groups(request, pk):
         team.player_set.filter(state=PLAYING_STATES['on_the_court'])
     )
     try:
-        num_of_groups = int(request.GET.get('num_of_teams', 2))
+        num_of_groups = int(request.GET['num_of_teams'])
+    except KeyError:
+        num_of_groups = 2
     except ValueError:
         return HttpResponseBadRequest('Ilegal num_of_teams URL parameter')
     try:
