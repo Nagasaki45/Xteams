@@ -7,13 +7,13 @@
     {{ team.name }}
 </h1>
 {% if user in team.managers.all %}
-    <p><a class="btn btn-lg btn-primary" href="{% url 'teams:manage' pk=team.pk %}">Manage</a></p>
+    <p><a class="btn btn-lg btn-primary" href="{% url 'groups:manage' pk=team.pk %}">Manage</a></p>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 
-<form action="{% url 'teams:groups' pk=team.pk %}" class="form">
+<form action="{% url 'groups:groups' pk=team.pk %}" class="form">
     {% buttons %}
         <button type="submit" class="btn btn-primary form-control">Create teams!</button>
     {% endbuttons %}

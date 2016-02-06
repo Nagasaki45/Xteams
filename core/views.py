@@ -29,7 +29,7 @@ class Register(FormView):
 class Contact(FormView):
     template_name = 'contact.html'
     form_class = ContactForm
-    success_url = reverse_lazy('teams:list')
+    success_url = reverse_lazy('groups:list')
 
     def form_valid(self, form):
         subject = form.cleaned_data['subject']

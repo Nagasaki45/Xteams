@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Welcome to Xteams!</h1>
+<p class="lead"><em>Create teams automatically based on discrete scores of the players</em></p>
+{% if user.is_authenticated %}
+    <p>
+        <a class="btn btn-primary" href="{% url 'groups:create' %}">Add a new group</a>
+    </p>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="list-group" id="teams">
+    {% for group in user_groups %}
+        <a class="list-group-item" href="{{ group.get_absolute_url }}">
+            {{ group.name }}<span class="badge">Managed</span>
+        </a>
+    {% endfor %}
+    {% for group in rest_groups %}
+        <a class="list-group-item" href="{{ group.get_absolute_url }}">
+            {{ group.name }}
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

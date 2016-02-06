@@ -25,5 +25,5 @@ urlpatterns = [
         core.views.TemplateView.as_view(template_name='about.html'),
         name='about'),
 
-    url(r'^', include(teams.urls.urlpatterns, namespace='teams')),
+    url(r'^', include(teams.urls.urlpatterns, namespace='groups')),
 ]

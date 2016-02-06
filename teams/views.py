@@ -18,7 +18,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.views.generic.edit import CreateView, FormMixin
 from django.views.generic.detail import DetailView
-from django.http import HttpResponseBadRequest
 
 from braces.views import (JSONResponseMixin, AjaxResponseMixin,
                           UserPassesTestMixin, LoginRequiredMixin)
@@ -30,19 +29,19 @@ from . import utils
 from . import grouper
 
 
-def team_list(request):
-    teams = Team.objects.all()
+def group_list(request):
+    groups = Team.objects.all()
     if request.user.is_authenticated():
         context = {
-            'user_teams': teams.filter(managers=request.user),
-            'rest_teams': teams.exclude(managers=request.user),
+            'user_groups': groups.filter(managers=request.user),
+            'rest_groups': groups.exclude(managers=request.user),
         }
     else:
-        context = {'rest_teams': teams}
-    return render(request, 'teams/team_list.html', context)
+        context = {'rest_groups': groups}
+    return render(request, 'teams/list.html', context)
 
 
-class TeamCreate(LoginRequiredMixin, CreateView):
+class GroupCreate(LoginRequiredMixin, CreateView):
     model = Team
     fields = ['name']
 
@@ -57,18 +56,18 @@ class GroupDetail(FormMixin, DetailView):
     form_class = GameForm
 
 
-def groups(request, pk):
-    team = get_object_or_404(Team, pk=pk)
-    players = utils.get_group_players(team, 'on_the_court')
+def team_up(request, pk):
+    group = get_object_or_404(Team, pk=pk)
+    players = utils.get_group_players(group, 'on_the_court')
     form = GameForm(request.GET, num_of_players=len(players))
     if not form.is_valid():
         utils.message_form_errors(request, form)
-        return redirect('teams:detail', pk=team.pk)
+        return redirect('groups:detail', pk=group.pk)
     number_of_teams = form.cleaned_data['number_of_teams']
-    groups = grouper.create(num_of_groups=number_of_teams, elements=players,
-                            key=lambda p: p.score)
-    context = {'team': team, 'groups': groups}
-    return render(request, 'teams/groups.html', context)
+    teams = grouper.create(num_of_groups=number_of_teams, elements=players,
+                           key=lambda p: p.score)
+    context = {'group': group, 'teams': teams}
+    return render(request, 'teams/team_up.html', context)
 
 
 class Manage(UserPassesTestMixin, InlineFormSetView):
@@ -79,17 +78,12 @@ class Manage(UserPassesTestMixin, InlineFormSetView):
     template_name = 'teams/manage.html'
 
     def test_func(self, user):
-        team = get_object_or_404(Team, pk=self.kwargs['pk'])
-        return user in team.managers.all()
+        group = get_object_or_404(Team, pk=self.kwargs['pk'])
+        return user in group.managers.all()
 
 
 class ChangeState(JSONResponseMixin, AjaxResponseMixin, View):
-
-    '''
-    Ajax view to change the players state.
-    POST data includes player_pk and new_state valeus.
-    '''
-
+    """Ajax view to change the players state."""
     def post_ajax(self, request):
         player = get_object_or_404(Player, pk=request.POST['player_pk'])
         player.state = PLAYING_STATES[request.POST['new_state']]

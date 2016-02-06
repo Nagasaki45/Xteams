@@ -40,7 +40,7 @@ class Team(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('teams:detail', args=[str(self.id)])
+        return reverse('groups:detail', args=[str(self.id)])
 
 
 class Player(models.Model):
