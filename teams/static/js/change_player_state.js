@@ -27,7 +27,7 @@ new Vue({
         id: 'on_the_court',
         name: 'On the court',
         color: 'green',
-        players: starting_players.on_the_court,
+        players: _.filter(players, function(o) { return o.state === 'on_the_court'; }),
         buttons: [
           { class: 'btn-danger', newState: 'gone_home', text: 'Gone home' },
           { class: 'btn-warning', newState: 'on_the_bench', text: 'Move to bench' }
@@ -37,7 +37,7 @@ new Vue({
         id: 'on_the_bench',
         name: 'On the bench',
         color: 'orange',
-        players: starting_players.on_the_bench,
+        players: _.filter(players, function(o) { return o.state === 'on_the_bench'; }),
         buttons: [
           { class: 'btn-danger', newState: 'gone_home', text: 'Gone home' },
           { class: 'btn-success', newState: 'on_the_court', text: 'Move to court' }
@@ -47,7 +47,7 @@ new Vue({
         id: 'gone_home',
         name: 'Gone home',
         color: 'red',
-        players: starting_players.gone_home,
+        players: _.filter(players, function(o) { return o.state === 'gone_home'; }),
         buttons: [
           { class: 'btn-warning', newState: 'on_the_bench', text: 'Move to bench' },
           { class: 'btn-success', newState: 'on_the_court', text: 'Move to court' }

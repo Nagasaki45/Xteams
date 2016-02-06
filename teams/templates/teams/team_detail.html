@@ -49,23 +49,11 @@
 {% block scripts %}
     {{ block.super }}
     <script type="text/javascript">
-        var starting_players = {
-          on_the_court: [
-            {% for player in on_the_court %}
-                { pk: {{ player.pk }}, name: "{{ player.name }}" },
+        var players = [
+            {% for player in team.player_set.all %}
+                { pk: {{ player.pk }}, name: "{{ player.name }}", state: "{{ player.state_name }}" },
             {% endfor %}
-          ],
-          on_the_bench: [
-            {% for player in on_the_bench %}
-                { pk: {{ player.pk }}, name: "{{ player.name }}" },
-            {% endfor %}
-          ],
-          gone_home: [
-            {% for player in gone_home %}
-                { pk: {{ player.pk }}, name: "{{ player.name }}" },
-            {% endfor %}
-          ]
-        };
+        ];
     </script>
     <script src="{% static 'js/change_player_state.js' %}"></script>
 {% endblock %}

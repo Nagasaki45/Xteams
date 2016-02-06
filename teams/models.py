@@ -24,6 +24,7 @@ PLAYING_STATES = {
     'gone_home': 8,
 }
 
+PLAYING_STATE_TO_NUM = {val: key for key, val in PLAYING_STATES.items()}
 
 PLAYING_STATE_CHOICES = [
     (val, key.replace('_', ' ').capitalize())
@@ -52,3 +53,7 @@ class Player(models.Model):
     class Meta:
         unique_together = ['team', 'name']
         ordering = ['name']
+
+    @property
+    def state_name(self):
+        return PLAYING_STATE_TO_NUM[self.state]

@@ -16,7 +16,8 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, FormMixin
+from django.views.generic.detail import DetailView
 from django.contrib import messages
 from django.http import HttpResponseBadRequest
 
@@ -51,14 +52,9 @@ class TeamCreate(LoginRequiredMixin, CreateView):
         return result
 
 
-def team_detail(request, pk):
-    team = get_object_or_404(Team, pk=pk)
-    # players on the court, on the bench and gone home as dict
-    context = {key: team.player_set.filter(state=value)
-               for key, value in PLAYING_STATES.items()}
-    context['team'] = team
-    context['form'] = GameForm()
-    return render(request, 'teams/team_detail.html', context)
+class GroupDetail(FormMixin, DetailView):
+    model = Team
+    form_class = GameForm
 
 
 def groups(request, pk):
