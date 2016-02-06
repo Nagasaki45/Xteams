@@ -6,7 +6,7 @@ urlpatterns = [
     url(r'^$', views.group_list, name='list'),
     url(r'^create/$', views.GroupCreate.as_view(), name='create'),
     url(r'^(?P<pk>\d+)/$', views.GroupDetail.as_view(), name='detail'),
-    url(r'^(?P<pk>\d+)/groups/$', views.team_up, name='groups'),
+    url(r'^(?P<pk>\d+)/team-up/$', views.team_up, name='team-up'),
     url(r'^(?P<pk>\d+)/manage/$', views.Manage.as_view(), name='manage'),
 
     # AJAX views
