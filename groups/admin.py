@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Team, Player
+from .models import Group, Player
 
 
 class PlayerInline(admin.TabularInline):
@@ -9,9 +9,9 @@ class PlayerInline(admin.TabularInline):
     extra = 3
 
 
-class TeamAdmin(admin.ModelAdmin):
+class GroupAdmin(admin.ModelAdmin):
     fields = ['name', 'managers']
     inlines = [PlayerInline]
 
 
-admin.site.register(Team, TeamAdmin)
+admin.site.register(Group, GroupAdmin)

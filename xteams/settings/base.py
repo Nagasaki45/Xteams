@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'bootstrap3',
 
     'core',
-    'teams',
+    'groups',
 ]
 
 MIDDLEWARE_CLASSES = [

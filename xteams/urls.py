@@ -6,7 +6,7 @@ from django.contrib.auth.views import login, logout
 from django.contrib import admin
 admin.autodiscover()
 
-import teams.urls
+import groups.urls
 import core.views
 
 urlpatterns = [
@@ -25,5 +25,5 @@ urlpatterns = [
         core.views.TemplateView.as_view(template_name='about.html'),
         name='about'),
 
-    url(r'^', include(teams.urls.urlpatterns, namespace='groups')),
+    url(r'^', include(groups.urls.urlpatterns, namespace='groups')),
 ]

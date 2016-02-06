@@ -23,14 +23,14 @@ from braces.views import (JSONResponseMixin, AjaxResponseMixin,
                           UserPassesTestMixin, LoginRequiredMixin)
 from extra_views import InlineFormSetView
 
-from .models import PLAYING_STATES, Team, Player
+from .models import PLAYING_STATES, Group, Player
 from .forms import GameForm
 from . import utils
 from . import grouper
 
 
 def group_list(request):
-    groups = Team.objects.all()
+    groups = Group.objects.all()
     if request.user.is_authenticated():
         context = {
             'user_groups': groups.filter(managers=request.user),
@@ -38,11 +38,11 @@ def group_list(request):
         }
     else:
         context = {'rest_groups': groups}
-    return render(request, 'teams/list.html', context)
+    return render(request, 'groups/list.html', context)
 
 
 class GroupCreate(LoginRequiredMixin, CreateView):
-    model = Team
+    model = Group
     fields = ['name']
 
     def form_valid(self, form):
@@ -52,12 +52,12 @@ class GroupCreate(LoginRequiredMixin, CreateView):
 
 
 class GroupDetail(FormMixin, DetailView):
-    model = Team
+    model = Group
     form_class = GameForm
 
 
 def team_up(request, pk):
-    group = get_object_or_404(Team, pk=pk)
+    group = get_object_or_404(Group, pk=pk)
     players = utils.get_group_players(group, 'on_the_court')
     form = GameForm(request.GET, num_of_players=len(players))
     if not form.is_valid():
@@ -67,18 +67,18 @@ def team_up(request, pk):
     teams = grouper.create(num_of_groups=number_of_teams, elements=players,
                            key=lambda p: p.score)
     context = {'group': group, 'teams': teams}
-    return render(request, 'teams/team_up.html', context)
+    return render(request, 'groups/team_up.html', context)
 
 
 class Manage(UserPassesTestMixin, InlineFormSetView):
-    model = Team
+    model = Group
     inline_model = Player
     fields = ['name', 'score']
     extra = 5
-    template_name = 'teams/manage.html'
+    template_name = 'groups/manage.html'
 
     def test_func(self, user):
-        group = get_object_or_404(Team, pk=self.kwargs['pk'])
+        group = get_object_or_404(Group, pk=self.kwargs['pk'])
         return user in group.managers.all()
 
 

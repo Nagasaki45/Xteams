@@ -32,7 +32,7 @@ PLAYING_STATE_CHOICES = [
 ]
 
 
-class Team(models.Model):
+class Group(models.Model):
     name = models.CharField(max_length=50, unique=True)
     managers = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
 
@@ -45,13 +45,13 @@ class Team(models.Model):
 
 class Player(models.Model):
     name = models.CharField(max_length=50)
-    team = models.ForeignKey(Team)
+    group = models.ForeignKey(Group)
     score = models.FloatField()
     state = models.IntegerField(choices=PLAYING_STATE_CHOICES,
                                 default=PLAYING_STATES['gone_home'])
 
     class Meta:
-        unique_together = ['team', 'name']
+        unique_together = ['group', 'name']
         ordering = ['name']
 
     @property
