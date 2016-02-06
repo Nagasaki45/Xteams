@@ -20,28 +20,14 @@ import statistics
 NUM_OF_COMBINATIONS = 125
 
 
-class GrouperError(Exception):
-    pass
-
-
 def create(num_of_groups, elements, key=(lambda x: x)):
-    '''Partitioning elements into groups with similar total score.
+    """Partitioning elements into groups with similar total score.
 
-    - Comparator should be given in order to extract the score
-    from the elements.
-    '''
-
-    _validate(num_of_groups, elements)
+    - Key function should be given to extract scores from each element.
+    """
     options = [_random_allocation(num_of_groups, elements)
                for _ in range(NUM_OF_COMBINATIONS)]
     return min(options, key=lambda x: _score_variance(x, key))
-
-
-def _validate(num_of_groups, elements):
-    if num_of_groups < 2:
-        raise GrouperError('Minimum 2 groups.')
-    if len(elements) < num_of_groups:
-        raise GrouperError('Not enough elements to create groups.')
 
 
 def _random_allocation(num_of_groups, elements):

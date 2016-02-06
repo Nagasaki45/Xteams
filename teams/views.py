@@ -18,7 +18,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.views.generic.edit import CreateView, FormMixin
 from django.views.generic.detail import DetailView
-from django.contrib import messages
 from django.http import HttpResponseBadRequest
 
 from braces.views import (JSONResponseMixin, AjaxResponseMixin,
@@ -27,6 +26,7 @@ from extra_views import InlineFormSetView
 
 from .models import PLAYING_STATES, Team, Player
 from .forms import GameForm
+from . import utils
 from . import grouper
 
 
@@ -59,22 +59,14 @@ class GroupDetail(FormMixin, DetailView):
 
 def groups(request, pk):
     team = get_object_or_404(Team, pk=pk)
-    players = list(
-        team.player_set.filter(state=PLAYING_STATES['on_the_court'])
-    )
-    try:
-        num_of_groups = int(request.GET['num_of_teams'])
-    except KeyError:
-        num_of_groups = 2
-    except ValueError:
-        return HttpResponseBadRequest('Ilegal num_of_teams URL parameter')
-    try:
-        groups = grouper.create(num_of_groups=num_of_groups,
-                                elements=players,
-                                key=lambda p: p.score)
-    except grouper.GrouperError as e:
-        messages.error(request, str(e))
+    players = utils.get_group_players(team, 'on_the_court')
+    form = GameForm(request.GET, num_of_players=len(players))
+    if not form.is_valid():
+        utils.message_form_errors(request, form)
         return redirect('teams:detail', pk=team.pk)
+    number_of_teams = form.cleaned_data['number_of_teams']
+    groups = grouper.create(num_of_groups=number_of_teams, elements=players,
+                            key=lambda p: p.score)
     context = {'team': team, 'groups': groups}
     return render(request, 'teams/groups.html', context)
 
