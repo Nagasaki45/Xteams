@@ -54,6 +54,7 @@
                 { pk: {{ player.pk }}, name: "{{ player.name }}", state: "{{ player.state_name }}" },
             {% endfor %}
         ];
+        window.CSRF_TOKEN = "{{ csrf_token }}";
     </script>
     <script src="{% static 'js/change_player_state.js' %}"></script>
 {% endblock %}
