@@ -12,7 +12,7 @@
 
 {% block content %}
 
-<div class="list-group" id="teams">
+<div class="list-group">
     {% for group in user_groups %}
         <a class="list-group-item" href="{{ group.get_absolute_url }}">
             {{ group.name }}<span class="badge">Managed</span>
