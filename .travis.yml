@@ -3,8 +3,9 @@ python:
   - "3.5"
 install:
   - pip install -r requirements.txt
+  - pip install coveralls
 script:
-  - python manage.py test functional_tests
+  - coverage run --source=groups manage.py test functional_tests
 # Running a display for selenium firefox driver
 before_install:
   - "export DISPLAY=:99.0"
