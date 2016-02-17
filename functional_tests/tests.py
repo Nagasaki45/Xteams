@@ -22,7 +22,6 @@ class TeamsTest(StaticLiveServerTestCase):
         Player.objects.create(name='Jacob', score=11, group=ts)
 
         self.browser = webdriver.Firefox()
-        # self.browser.implicitly_wait(5)  # set session timeout for queries
 
     def tearDown(self):
         self.browser.close()
