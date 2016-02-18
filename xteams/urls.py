@@ -12,16 +12,12 @@ import core.views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
-    # accounts
-    url(r'^accounts/login/$', login, name='login'),
-    url(r'^accounts/logout/$', logout, {'next_page': settings.LOGIN_REDIRECT_URL}, name='logout'),
+    # core
     url(r'^accounts/register/$', core.views.Register.as_view(), name='register'),
-
-    # contact
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^contact/$', core.views.Contact.as_view(), name='contact'),
-
-    # about
     url(r'^about/$', TemplateView.as_view(template_name='about.html'), name='about'),
 
+    # groups
     url(r'^', include(groups.urls.urlpatterns, namespace='groups')),
 ]
