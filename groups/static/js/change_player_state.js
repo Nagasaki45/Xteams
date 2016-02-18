@@ -80,10 +80,7 @@ new Vue({
         data: {player_pk: player.pk,
                new_state: newState,
                csrfmiddlewaretoken: window.CSRF_TOKEN},
-        type: 'POST',
-        beforeSend: function(request) {
-            request.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
-        }
+        type: 'POST'
       });
     }
   }
