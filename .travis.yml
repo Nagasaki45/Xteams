@@ -2,7 +2,8 @@ language: python
 python:
   - "3.5"
 install:
-  - pip install -r requirements.txt
+  - pip install -r requirements/run.txt
+  - pip install -r requirements/test.txt
   - pip install coveralls
 script:
   - coverage run --source=groups,core manage.py test functional_tests

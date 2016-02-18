@@ -25,7 +25,7 @@ First, run the initial requirements and local database setup:
 $ # virtualenv is highly recommended
 $ virtualenv env
 $ source env/bin/activate
-$ pip install -r requirements.txt
+$ pip install -r requirements/run.txt
 $ docker-compose up -d  # to spin postgres
 $ python manage.py migrate
 ```
@@ -36,6 +36,13 @@ You are ready to go, run:
 $ python manage.py createsuperuser  # optionally
 $ python manage.py runserver
 ```
+
+### Requirements files
+
+There are 3 requirements files:
+- For running the app you only need to `pip install requirements/run.txt`
+- For running the test you will also have to `pip install requirements/test.txt`
+- I'm using one extra requirement file for development, but nothing really depends on it.
 
 ### env_file
 
