@@ -28,10 +28,6 @@ class Contact(FormView):
     success_url = reverse_lazy('groups:list')
 
     def form_valid(self, form):
-        subject = form.cleaned_data['subject']
-        email = form.cleaned_data['email']
-        content = 'From: {}.\n\n{}'.format(email,
-                                           form.cleaned_data['content'])
-        mail_admins(subject, content)
+        mail_admins('New message from Xteams', form.cleaned_data['content'])
         messages.success(self.request, 'Your message has been sent. Thanks!')
         return super(Contact, self).form_valid(form)

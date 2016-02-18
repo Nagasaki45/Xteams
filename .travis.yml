@@ -6,7 +6,7 @@ install:
   - pip install -r requirements/test.txt
   - pip install coveralls
 script:
-  - coverage run --source=groups,core manage.py test functional_tests
+  - coverage run --source=groups,core manage.py test
 # Running a display for selenium firefox driver
 before_install:
   - "export DISPLAY=:99.0"
