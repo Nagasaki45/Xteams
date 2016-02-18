@@ -22,10 +22,9 @@ Instead of global postgres installation I'm using postgres in a docker container
 First, run the initial requirements and local database setup:
 
 ```bash
-$ # I prefer conda environments, but virtualenvs will work similarly
-$ # just notice the .env and .out files
-$ conda create --name Xteams python=3.5.1
-$ source activate Xteams
+$ # virtualenv is highly recommended
+$ virtualenv env
+$ source env/bin/activate
 $ pip install -r requirements.txt
 $ docker-compose up -d  # to spin postgres
 $ python manage.py migrate
