@@ -9,8 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap -->
-    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block styles %}
     {% endblock %}
@@ -63,7 +62,7 @@
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 <script src="{% static 'js/vue.min.js' %}"></script>
 <script src="{% static 'js/lodash.min.js' %}"></script>
-{% bootstrap_javascript %}
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 {% block scripts %}
 {% endblock %}
 
