@@ -1,29 +1,25 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import FormView
-from django.contrib.auth import get_user_model, authenticate, login
+from django.views.generic.edit import CreateView, FormView
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import mail_admins
 from django.contrib import messages
 
-from .forms import RegistrationForm, ContactForm
-
-User = get_user_model()
+from .forms import ContactForm
 
 
-class Register(FormView):
+class Register(CreateView):
     template_name = 'registration/register.html'
-    form_class = RegistrationForm
+    form_class = UserCreationForm
     success_url = settings.LOGIN_REDIRECT_URL
 
     def form_valid(self, form):
-        username = form.cleaned_data['username']
-        email = form.cleaned_data['email']
-        password = form.cleaned_data['password']
-        User.objects.create_user(username=username, password=password)
-        user = authenticate(username=username, password=password)
+        response = super().form_valid(form)
+        user = authenticate(username=form.cleaned_data['username'],
+                            password=form.cleaned_data['password2'])
         login(self.request, user)
-        return super(Register, self).form_valid(form)
+        return response
 
 
 class Contact(FormView):

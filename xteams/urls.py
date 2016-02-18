@@ -21,9 +21,7 @@ urlpatterns = [
     url(r'^contact/$', core.views.Contact.as_view(), name='contact'),
 
     # about
-    url(r'^about/$',
-        core.views.TemplateView.as_view(template_name='about.html'),
-        name='about'),
+    url(r'^about/$', TemplateView.as_view(template_name='about.html'), name='about'),
 
     url(r'^', include(groups.urls.urlpatterns, namespace='groups')),
 ]
