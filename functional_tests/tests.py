@@ -129,3 +129,38 @@ class AccountManagementTest(BaseSeleniumTestCase):
 
         self.browser.find_element_by_link_text('Logout').click()
         self.assertUserLoggedOut()
+
+
+class GroupManagementTest(BaseSeleniumTestCase):
+
+    def setUp(self):
+        super().setUp()
+        User.objects.create_user(username='Moshe', password='secret_password')
+        self.login('Moshe', 'secret_password')
+        self.group = 'Basketball with Moshe'
+
+    def test_create_group(self):
+        self.browser.get(self.live_server_url)
+        self.create_group(self.group, use_homepage_button=True)
+
+        # Moshe was redirected to the group page
+        header = self.browser.find_element_by_tag_name('h1')
+        self.assertEqual(header.text, self.group)
+
+        # Moshe goes back to the homepage to make he manage the group
+        self.browser.find_element_by_link_text('Xteams!').click()
+        group_element = self.find_group_element(self.group)
+        self.assertIn('Managed', group_element.text)
+
+    def test_manage_group_add_players(self):
+        self.create_group(self.group)
+        self.browser.find_element_by_link_text('Manage').click()
+
+        self.fill_input_field('Name', 'Moshe')
+        self.fill_input_field('Score', 1000)
+        self.submit()  # No redirect upon submit
+        self.browser.find_element_by_link_text(self.group).click()
+
+        # There is a player for Moshe
+        players = self.browser.find_element_by_id('players')
+        self.assertIn('Moshe', players.text)

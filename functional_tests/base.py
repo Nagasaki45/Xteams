@@ -10,6 +10,11 @@ class BaseSeleniumTestCase(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.close()
 
+    def find_group_element(self, group_name):
+        """Return group element from the homepage groups list"""
+        xpath = "//a[contains(., '{}')]".format(group_name)
+        return self.browser.find_element_by_xpath(xpath)
+
     def fill_input_field(self, placeholder, content):
         xpath = "//input[@placeholder='{}']".format(placeholder)
         input_field = self.browser.find_element_by_xpath(xpath)
@@ -22,6 +27,14 @@ class BaseSeleniumTestCase(StaticLiveServerTestCase):
             self.browser.get(self.live_server_url + '/accounts/login')
         self.fill_input_field('Username', username)
         self.fill_input_field('Password', password)
+        self.submit()
+
+    def create_group(self, group_name, *, use_homepage_button=False):
+        if use_homepage_button:
+            self.browser.find_element_by_link_text('Add a new group').click()
+        else:
+            self.browser.get(self.live_server_url + '/create')
+        self.fill_input_field('Name', self.group)
         self.submit()
 
     def submit(self):
