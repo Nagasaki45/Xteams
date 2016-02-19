@@ -43,10 +43,6 @@ class TeamsTest(BaseSeleniumTestCase):
             teams.add(frozenset(player.text for player in players))
         return teams
 
-    def click_create_teams(self):
-        xpath = "//button[contains(., 'Create teams!')]"
-        self.browser.find_element_by_xpath(xpath).click()
-
     def set_num_of_teams(self, num_of_teams):
         inputbox = self.browser.find_element_by_id('id_number_of_teams')
         inputbox.clear()
@@ -65,7 +61,7 @@ class TeamsTest(BaseSeleniumTestCase):
         # He move some players to the court and creates teams
         self.change_player_state('Noam', 'Move to court')
         self.change_player_state('Ron', 'Move to court')
-        self.click_create_teams()
+        self.submit()
 
         # Now he sees the results
         teams = self.parse_teams()
@@ -80,9 +76,8 @@ class TeamsTest(BaseSeleniumTestCase):
 
         self.change_player_state('Noam', 'Move to court')
         self.change_player_state('Ron', 'Move to court')
-
         self.set_num_of_teams(3)
-        self.click_create_teams()
+        self.submit()
 
         error = self.browser.find_element_by_css_selector('.alert-danger')
         self.assertIn('not enough players', error.text.lower())
@@ -97,8 +92,7 @@ class TeamsTest(BaseSeleniumTestCase):
         self.change_player_state('Arik', 'Move to court')  # score: 8
         self.change_player_state('Gonen', 'Move to court')  # score: 6
         self.change_player_state('Jacob', 'Move to court')  # score: 11
-
-        self.click_create_teams()
+        self.submit()
 
         teams = self.parse_teams()
         expected = {frozenset({'Yaniv', 'Jacob'}),
