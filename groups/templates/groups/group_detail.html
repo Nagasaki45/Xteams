@@ -5,10 +5,13 @@
 {% block title %}
 <h1>
     {{ object.name }}
+    {% if user in object.managers.all %}
+        <a class="btn btn-default" href="{% url 'groups:manage' pk=object.pk %}">
+            <span class="glyphicon glyphicon glyphicon-cog" aria-hidden="true"></span>
+            Manage
+        </a>
+    {% endif %}
 </h1>
-{% if user in object.managers.all %}
-    <p><a class="btn btn-lg btn-primary" href="{% url 'groups:manage' pk=object.pk %}">Manage</a></p>
-{% endif %}
 {% endblock %}
 
 {% block content %}

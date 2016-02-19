@@ -145,7 +145,7 @@ class GroupManagementTest(BaseSeleniumTestCase):
 
         # Moshe was redirected to the group page
         header = self.browser.find_element_by_tag_name('h1')
-        self.assertEqual(header.text, self.group)
+        self.assertIn(self.group, header.text)
 
         # Moshe goes back to the homepage to make he manage the group
         self.browser.find_element_by_link_text('Xteams!').click()
