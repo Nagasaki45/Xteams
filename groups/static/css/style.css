@@ -1,24 +1,24 @@
 .margins {
-    margin-right: 2px;
-    margin-left: 2px;
+  margin-right: 2px;
+  margin-left: 2px;
 }
 
 #players {
-    margin-left: 0px;
+  margin-left: 0px;
 }
 
 /* list headers, based on bootstrap buttons colors */
 .list-group-item.active.green {
-    background-color: #5CB85C;
-    border-color: #4CAE4C;
+  background-color: #5CB85C;
+  border-color: #4CAE4C;
 }
 
 .list-group-item.active.orange {
-    background-color: #F0AD4E;
-    border-color: #EEA236;
+  background-color: #F0AD4E;
+  border-color: #EEA236;
 }
 
 .list-group-item.active.red {
-    background-color: #D9534F;
-    border-color: #D43F3A;
+  background-color: #D9534F;
+  border-color: #D43F3A;
 }

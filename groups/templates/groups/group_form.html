@@ -2,15 +2,15 @@
 {% load bootstrap3 %}
 
 {% block title %}
-    <h1>New group</h1>
+<h1>New group</h1>
 {% endblock %}
 
 {% block content %}
 <form class="form" method="post">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% buttons %}
-        <input type="submit" class="btn btn-primary form-control" value="Add group!" />
-    {% endbuttons %}
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+  <input type="submit" class="btn btn-primary form-control" value="Add group!" />
+  {% endbuttons %}
 </form>
 {% endblock %}

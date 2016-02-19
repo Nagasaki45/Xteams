@@ -4,60 +4,57 @@
 
 {% block title %}
 <h1>
-    {{ object.name }}
-    {% if user in object.managers.all %}
-        <a class="btn btn-default" href="{% url 'groups:manage' pk=object.pk %}">
-            <span class="glyphicon glyphicon glyphicon-cog" aria-hidden="true"></span>
-            Manage
-        </a>
-    {% endif %}
+  {{ object.name }}
+  {% if user in object.managers.all %}
+  <a class="btn btn-default" href="{% url 'groups:manage' pk=object.pk %}">
+    <span class="glyphicon glyphicon glyphicon-cog" aria-hidden="true"></span>
+    Manage
+  </a>
+  {% endif %}
 </h1>
 {% endblock %}
 
 {% block content %}
 
 <form action="{% url 'groups:team-up' pk=object.pk %}" class="form">
-    {% buttons %}
-        <input type="submit" class="btn btn-primary form-control" value="Create teams!" />
-    {% endbuttons %}
-    {% bootstrap_form form %}
+  {% buttons %}
+  <input type="submit" class="btn btn-primary form-control" value="Create teams!" />
+  {% endbuttons %}
+  {% bootstrap_form form %}
 </form>
 
 <div id="players" class="row">
-
-    {% verbatim %}
-    <div v-for="list in lists">
-        <div class="col-md-4 list-group">
-            <a class="list-group-item active {{ list.color }}">
-                {{ list.name }}
-                <span class="badge">{{ list.players | length }} {{ list.players | length | pluralize 'player' }}</span>
-            </a>
-            <a v-for="player in list.players | orderBy 'name'" transition="slide" class="list-group-item clearfix">
-                {{ player.name }}
-                <span v-for="button in list.buttons">
-                    <p v-on:click="moveTo(player, list.id, button.newState)"
-                       class="{{ button.class }} btn btn-xs pull-right margins">
-                      {{ button.text }}
-                    </p>
-                </span>
-            </a>
-        </div>
+  {% verbatim %}
+  <div v-for="list in lists">
+    <div class="col-md-4 list-group">
+      <a class="list-group-item active {{ list.color }}">
+        {{ list.name }}
+        <span class="badge">{{ list.players | length }} {{ list.players | length | pluralize 'player' }}</span>
+      </a>
+      <a v-for="player in list.players | orderBy 'name'" transition="slide" class="list-group-item clearfix">
+        {{ player.name }}
+        <span v-for="button in list.buttons">
+          <p v-on:click="moveTo(player, list.id, button.newState)" class="{{ button.class }} btn btn-xs pull-right margins">
+            {{ button.text }}
+          </p>
+        </span>
+      </a>
     </div>
-    {% endverbatim %}
-
+  </div>
+  {% endverbatim %}
 </div>
 
 {% endblock %}
 
 {% block scripts %}
-    {{ block.super }}
-    <script type="text/javascript">
-        var players = [
-            {% for player in object.player_set.all %}
-                { pk: {{ player.pk }}, name: "{{ player.name }}", state: "{{ player.state_name }}" },
-            {% endfor %}
-        ];
-        window.CSRF_TOKEN = "{{ csrf_token }}";
-    </script>
-    <script src="{% static 'js/change_player_state.js' %}"></script>
+{{ block.super }}
+<script type="text/javascript">
+var players = [
+  {% for player in object.player_set.all %}
+  { pk: {{ player.pk }}, name: "{{ player.name }}", state: "{{ player.state_name }}" },
+  {% endfor %}
+];
+window.CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+<script src="{% static 'js/change_player_state.js' %}"></script>
 {% endblock %}

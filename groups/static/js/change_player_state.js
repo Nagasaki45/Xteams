@@ -70,18 +70,18 @@ new Vue({
   methods: {
     moveTo: function (player, oldState, newState) {
       var oldList = _.find(this.lists, { id: oldState }),
-          newList = _.find(this.lists, { id: newState }),
-          indexInOld = oldList.players.indexOf(player);
+      newList = _.find(this.lists, { id: newState }),
+      indexInOld = oldList.players.indexOf(player);
       oldList.players.splice(indexInOld, 1)
       newList.players.push(player);
 
       $.ajax({
         url: '/change-state/',
         data: {player_pk: player.pk,
-               new_state: newState,
-               csrfmiddlewaretoken: window.CSRF_TOKEN},
-        type: 'POST'
-      });
+          new_state: newState,
+          csrfmiddlewaretoken: window.CSRF_TOKEN},
+          type: 'POST'
+        });
+      }
     }
-  }
-})
+  })
