@@ -1,6 +1,9 @@
 Xteams!
 =======
 
+[![Build Status](https://travis-ci.org/Nagasaki45/Xteams.svg?branch=master)](https://travis-ci.org/Nagasaki45/Xteams)
+[![Coverage Status](https://coveralls.io/repos/github/Nagasaki45/Xteams/badge.svg?branch=master)](https://coveralls.io/github/Nagasaki45/Xteams?branch=master)
+
 You want to create teams, but:
 
 - How can one create teams when Dana doesn't want to play with Haim, who must play with Jacob but not with Yossi... You've got the idea.
