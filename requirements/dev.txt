@@ -1,3 +1,4 @@
 ipython
 coverage
 ipdb
+Fabric3

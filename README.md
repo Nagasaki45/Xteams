@@ -60,6 +60,10 @@ Although it's possible to run without it in development, you probably want to ex
 
 ## Production / staging
 
+Easiest way - work with fabric: `fab deploy`.
+
+### More info
+
 Run the production environment on port 9768 (random number, to allow multiple apps on the same server) with:
 
 ```bash
