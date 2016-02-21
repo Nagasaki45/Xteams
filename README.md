@@ -1,7 +1,7 @@
 Xteams!
 =======
 
-[![Build Status](https://travis-ci.org/Nagasaki45/Xteams.svg?branch=master)](https://travis-ci.org/Nagasaki45/Xteams)
+[ ![Codeship Status for Nagasaki45/Xteams](https://codeship.com/projects/aa1e00d0-bb05-0133-640e-6efa14f009c2/status?branch=master)](https://codeship.com/projects/135768)
 [![Coverage Status](https://coveralls.io/repos/github/Nagasaki45/Xteams/badge.svg?branch=master)](https://coveralls.io/github/Nagasaki45/Xteams?branch=master)
 
 You want to create teams, but:
@@ -44,8 +44,8 @@ $ python manage.py runserver
 
 There are 3 requirements files:
 - For running the app you only need to `pip install requirements/run.txt`
-- For running the test you will also have to `pip install requirements/test.txt`
-- I'm using one extra requirement file for development, but nothing really depends on it.
+- For running the tests and CI/CD you will also have to `pip install requirements/extra.txt`
+- I'm using one more requirement file for development, but nothing really depends on it.
 
 ### env_file
 
