@@ -1,5 +1,5 @@
 Django==1.9
-django-bootstrap3==6.2.2
+django-bootstrap3==7.0.0
 django-braces==1.8.1
 django-extra-views==0.7.1
 django-mailgun==0.8.0
