@@ -18,18 +18,13 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
-PLAYING_STATES = {
-    'on_the_court': 0,
-    'on_the_bench': 4,
-    'gone_home': 8,
-}
-
-PLAYING_STATE_TO_NUM = {val: key for key, val in PLAYING_STATES.items()}
-
 PLAYING_STATE_CHOICES = [
-    (val, key.replace('_', ' ').capitalize())
-    for key, val in PLAYING_STATES.items()
+    (0, 'On the court'),
+    (4, 'On the bench'),
+    (8, 'Gone home'),
 ]
+NUM_TO_PLAYING_STATE = {num: state.lower().replace(' ', '_') for num, state in PLAYING_STATE_CHOICES}
+PLAYING_STATE_TO_NUM = {state.lower().replace(' ', '_'): num for num, state in PLAYING_STATE_CHOICES}
 
 
 class Group(models.Model):
@@ -48,7 +43,7 @@ class Player(models.Model):
     group = models.ForeignKey(Group)
     score = models.FloatField()
     state = models.IntegerField(choices=PLAYING_STATE_CHOICES,
-                                default=PLAYING_STATES['gone_home'])
+                                default=PLAYING_STATE_TO_NUM['gone_home'])
 
     class Meta:
         unique_together = ['group', 'name']
@@ -56,4 +51,8 @@ class Player(models.Model):
 
     @property
     def state_name(self):
-        return PLAYING_STATE_TO_NUM[self.state]
+        return NUM_TO_PLAYING_STATE[self.state]
+
+    @state_name.setter
+    def state_name(self, value):
+        self.state = PLAYING_STATE_TO_NUM[value]

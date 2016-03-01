@@ -1,10 +1,10 @@
 from django.contrib import messages
 
-from .models import PLAYING_STATES
+from .models import PLAYING_STATE_TO_NUM
 
 
 def get_group_players(team, state):
-    return list(team.player_set.filter(state=PLAYING_STATES[state]))
+    return list(team.player_set.filter(state=PLAYING_STATE_TO_NUM[state]))
 
 
 def message_form_errors(request, form):

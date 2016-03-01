@@ -23,7 +23,7 @@ from braces.views import (JSONResponseMixin, AjaxResponseMixin,
                           UserPassesTestMixin, LoginRequiredMixin)
 from extra_views import InlineFormSetView
 
-from .models import PLAYING_STATES, Group, Player
+from .models import Group, Player
 from .forms import GameForm
 from . import utils
 from . import grouper
@@ -86,6 +86,6 @@ class ChangeState(JSONResponseMixin, AjaxResponseMixin, View):
     """Ajax view to change the players state."""
     def post_ajax(self, request):
         player = get_object_or_404(Player, pk=request.POST['player_pk'])
-        player.state = PLAYING_STATES[request.POST['new_state']]
+        player.state_name = request.POST['new_state']
         player.save()
         return self.render_json_response({})
