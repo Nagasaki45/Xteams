@@ -63,21 +63,19 @@ Although it's possible to run without it in development, you probably want to ex
 
 ## Production / staging
 
-Easiest way - work with fabric: `fab deploy`.
-
-### More info
+> Note that `fab deploy` and `fab stage` automates most of the following.
 
 Run the production environment on port 9768 (random number, to allow multiple apps on the same server) with:
 
 ```bash
+$ docker-compose -f docker-compose-prod.yml build
+$ docker-compose -f docker-compose-prod.yml run --rm web python manage.py migrate
 $ docker-compose -f docker-compose-prod.yml up -d
 ```
 
-It will configure the following docker containers: Nginx http server -> webapp (running with gunicorn) -> postgres db.
+It will build 2 docker containers, `web` and `db`.
 
-The webapp collects static files into a volume shared with the Nginx container for the second to serve static files directly.
-
-You can set the Nginx on the host to route traffic to the Nginx container with:
+You can set the Nginx on the host to route traffic to the `web` container with:
 
 ```
 # /etc/nginx/sites-available/xteams.nagasaki45.com

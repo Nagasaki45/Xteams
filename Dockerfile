@@ -4,6 +4,3 @@ WORKDIR /code
 ADD . /code/
 RUN pip install -r requirements/run.txt
 ENV DJANGO_SETTINGS_MODULE xteams.settings.prod
-
-RUN mkdir /staticfiles
-RUN python manage.py collectstatic --noinput --clear

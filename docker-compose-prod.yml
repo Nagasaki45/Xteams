@@ -1,20 +1,10 @@
-nginx:
-  build: ./nginx
-  volumes_from:
-    - web
-  ports:
-    - "9768:8000"
-  links:
-    - web
-  restart: always
-
 web:
   build: .
-  command: gunicorn xteams.wsgi -b 0.0.0.0:8000
+  command: bash -c "python manage.py collectstatic --noinput --clear && gunicorn xteams.wsgi -b 0.0.0.0:8000"
+  ports:
+      - 9768:8000
   links:
     - db
-  volumes:
-    - /staticfiles
   restart: always
   env_file: ./env_file
 

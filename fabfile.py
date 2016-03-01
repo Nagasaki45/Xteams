@@ -12,8 +12,6 @@ def _build_and_run_app(locally=False):
     execute_using = local if locally else run
     _docker_compose('build', execute_using)
     _docker_compose('run --rm web python manage.py migrate', execute_using)
-    _docker_compose('stop', execute_using)
-    _docker_compose('rm --force web', execute_using)
     _docker_compose('up -d', execute_using)
 
 

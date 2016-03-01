@@ -12,5 +12,5 @@ DATABASES['default']['HOST'] = 'db'
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-# Collect static to a mounted volume
-STATIC_ROOT = '/staticfiles'
+# Gzip statics
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
