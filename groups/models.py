@@ -16,7 +16,7 @@
 
 from django.db import models
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 PLAYING_STATE_CHOICES = [
     (0, 'On the court'),
@@ -40,7 +40,7 @@ class Group(models.Model):
 
 class Player(models.Model):
     name = models.CharField(max_length=50)
-    group = models.ForeignKey(Group)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
     score = models.FloatField()
     state = models.IntegerField(choices=PLAYING_STATE_CHOICES,
                                 default=PLAYING_STATE_TO_NUM['gone_home'])

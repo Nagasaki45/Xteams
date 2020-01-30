@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, FormView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm

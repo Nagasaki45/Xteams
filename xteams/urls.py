@@ -10,7 +10,7 @@ import groups.urls
 import core.views
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 
     # core
     url(r'^accounts/register/$', core.views.Register.as_view(), name='register'),
@@ -19,5 +19,5 @@ urlpatterns = [
     url(r'^about/$', TemplateView.as_view(template_name='about.html'), name='about'),
 
     # groups
-    url(r'^', include(groups.urls.urlpatterns, namespace='groups')),
+    url(r'^', include(groups.urls.urlpatterns, app_name='groups', namespace='groups')),
 ]

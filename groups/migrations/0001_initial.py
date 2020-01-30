@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=50)),
                 ('score', models.FloatField()),
                 ('state', models.IntegerField(choices=[(0, 'On the court'), (4, 'On the bench'), (8, 'Gone home')], default=8)),
-                ('group', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='groups.Group')),
+                ('group', models.ForeignKey(on_delete=models.CASCADE, to='groups.Group')),
             ],
             options={
                 'ordering': ['name'],
