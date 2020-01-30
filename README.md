@@ -27,7 +27,7 @@ Now, run install dependencies and setup the database:
 ```bash
 $ python -m venv env  # virtualenv is highly recommended
 $ source env/bin/activate
-$ pip install -r requirements/run.txt
+$ pip install -r requirements.txt  # or use pip-tools
 $ python manage.py migrate
 $ python manage.py createsuperuser  # optionally
 ```
@@ -37,13 +37,6 @@ You are ready to go! Run:
 ```bash
 $ python manage.py runserver
 ```
-
-### Requirements files
-
-There are 3 requirements files:
-- For running the app you only need to `pip install requirements/run.txt`
-- For running the tests and CI/CD you will also have to `pip install requirements/extra.txt`
-- I'm using one more requirement file for development, but nothing really depends on it.
 
 ### env_file
 
