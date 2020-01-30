@@ -1,5 +1,4 @@
 __pycache__
 env
-env_file
+geckodriver.log
 .coverage
-htmlcov

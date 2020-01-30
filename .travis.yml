@@ -1,0 +1,11 @@
+language: python
+python:
+- '3.8'
+dist: xenial
+services:
+- postgresql
+- xvfb
+script:
+- coverage run --source=core,groups manage.py test
+after_success:
+- codecov
