@@ -37,17 +37,3 @@ You are ready to go! Run:
 ```bash
 $ python manage.py runserver
 ```
-
-### env_file
-
-Secrets are kept in a file in the root directory of the project, named `env_file`. Create one and populate it with:
-
-```
-ADMIN=<Your name>
-ADMIN_EMAIL=<Your email>
-MAILGUN_ACCESS_KEY=<key>
-MAILGUN_SERVER_NAME=<domain>
-```
-
-docker-compose will use this env_file automatically (notice the format, there are no exports).
-Although it's possible to run without it in development, you probably want to export each line. If you use some kind of autoenv the `.env` file will export each line for you. Otherwise you can source the `.env` file manually, or export manually, as you prefer.

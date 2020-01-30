@@ -2,6 +2,5 @@ django
 django-bootstrap3
 django-braces
 django-extra-views
-django-mailgun
 psycopg2
 selenium

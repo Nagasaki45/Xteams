@@ -26,7 +26,6 @@ urlpatterns = [
     # core
     path(r'accounts/register/', core.views.Register.as_view(), name='register'),
     path(r'accounts/', include('django.contrib.auth.urls')),
-    path(r'contact', core.views.Contact.as_view(), name='contact'),
     path(r'about', TemplateView.as_view(template_name='about.html'), name='about'),
 
     # groups
