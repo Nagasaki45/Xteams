@@ -1,23 +1,34 @@
-from django.conf.urls import include, url
-from django.conf import settings
-from django.views.generic.base import TemplateView
-from django.contrib.auth.views import login, logout
+"""xteams URL Configuration
 
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
 from django.contrib import admin
-admin.autodiscover()
+from django.urls import include, path
+from django.views.generic import TemplateView
 
-import groups.urls
 import core.views
+import groups.urls
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 
     # core
-    url(r'^accounts/register/$', core.views.Register.as_view(), name='register'),
-    url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^contact/$', core.views.Contact.as_view(), name='contact'),
-    url(r'^about/$', TemplateView.as_view(template_name='about.html'), name='about'),
+    path(r'accounts/register/', core.views.Register.as_view(), name='register'),
+    path(r'accounts/', include('django.contrib.auth.urls')),
+    path(r'contact', core.views.Contact.as_view(), name='contact'),
+    path(r'about', TemplateView.as_view(template_name='about.html'), name='about'),
 
     # groups
-    url(r'^', include(groups.urls.urlpatterns, app_name='groups', namespace='groups')),
+    path(r'', include('groups.urls', namespace='groups')),
 ]

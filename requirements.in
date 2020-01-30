@@ -7,4 +7,3 @@ gunicorn
 psycopg2
 requests
 selenium
-whitenoise

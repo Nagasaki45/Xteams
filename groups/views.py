@@ -31,7 +31,7 @@ from . import grouper
 
 def group_list(request):
     groups = Group.objects.all()
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         context = {
             'user_groups': groups.filter(managers=request.user),
             'rest_groups': groups.exclude(managers=request.user),
@@ -74,7 +74,7 @@ class Manage(UserPassesTestMixin, InlineFormSetView):
     model = Group
     inline_model = Player
     fields = ['name', 'score']
-    extra = 5
+    factory_kwargs = {'extra': 5}
     template_name = 'groups/manage.html'
 
     def test_func(self, user):
