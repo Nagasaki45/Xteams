@@ -1,8 +1,8 @@
 Xteams!
 =======
 
-[ ![Codeship Status for Nagasaki45/Xteams](https://codeship.com/projects/aa1e00d0-bb05-0133-640e-6efa14f009c2/status?branch=master)](https://codeship.com/projects/135768)
-[![Coverage Status](https://coveralls.io/repos/github/Nagasaki45/Xteams/badge.svg?branch=master)](https://coveralls.io/github/Nagasaki45/Xteams?branch=master)
+[![Build Status](https://travis-ci.org/Nagasaki45/Xteams.svg?branch=master)](https://travis-ci.org/Nagasaki45/Xteams)
+[![codecov](https://codecov.io/gh/Nagasaki45/Xteams/branch/master/graph/badge.svg)](https://codecov.io/gh/Nagasaki45/Xteams)
 
 You want to create teams, but:
 
