@@ -2,6 +2,11 @@ language: python
 python:
 - '3.8'
 dist: xenial
+env:
+  global:
+    - MOZ_HEADLESS=1
+addons:
+  firefox: latest
 services:
 - postgresql
 - xvfb
