@@ -16,8 +16,9 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
-from django.views.generic.edit import CreateView, FormMixin
+from django.views.generic.edit import CreateView, DeleteView, FormMixin
 from django.views.generic.detail import DetailView
+from django.urls import reverse_lazy
 
 from braces.views import (JSONResponseMixin, AjaxResponseMixin,
                           UserPassesTestMixin, LoginRequiredMixin)
@@ -79,6 +80,11 @@ class Manage(UserPassesTestMixin, UpdateWithInlinesView):
     def test_func(self, user):
         group = get_object_or_404(Group, pk=self.kwargs['pk'])
         return user in group.managers.all()
+
+
+class Delete(DeleteView):
+    model = Group
+    success_url = reverse_lazy('groups:list')
 
 
 class ChangeState(JSONResponseMixin, AjaxResponseMixin, View):

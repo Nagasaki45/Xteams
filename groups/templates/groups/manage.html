@@ -3,11 +3,16 @@
 
 {% block title %}
 <h1>
-  <a href="{{ object.get_absolute_url }}">{{ object.name }}</a> management panel
+  {{ object.name }}<br >management panel
 </h1>
 {% endblock %}
 
 {% block content %}
+
+<p class="text-center">
+  <a href="{{ object.get_absolute_url }}" class="btn btn-primary">Back to group page</a>
+  <a href="{% url 'groups:delete' pk=object.pk %}" class="btn btn-danger">Delete group</a>
+</p>
 
 <form method="POST">
   {% csrf_token %}

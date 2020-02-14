@@ -177,3 +177,14 @@ class GroupManagementTest(BaseSeleniumTestCase):
         self.assertIn(new_group_name, header.text)
         body_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn(self.group, body_text)
+
+    def test_delete_group(self):
+        self.create_group(self.group)
+        self.browser.find_element_by_link_text('Manage').click()
+
+        self.browser.find_element_by_link_text('Delete group').click()
+        self.submit()
+
+        # Check the group name doesn't appear in the homepage
+        body_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn(self.group, body_text)
