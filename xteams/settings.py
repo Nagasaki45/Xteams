@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY', 'm3i*e8=6o2saz7fvfi@eoc6es0591d-r5q4le#%7n5k#7&2=p^')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', True)
+DEBUG = bool(int(os.environ.get('DEBUG', True)))
 
 ALLOWED_HOSTS = [
     'xteams.herokuapp.com',
