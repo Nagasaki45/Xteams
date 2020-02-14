@@ -158,9 +158,22 @@ class GroupManagementTest(BaseSeleniumTestCase):
 
         self.fill_input_field('Name', 'Moshe')
         self.fill_input_field('Score', 1000)
-        self.submit()  # No redirect upon submit
-        self.browser.find_element_by_link_text(self.group).click()
+        self.submit()
 
         # There is a player for Moshe
         players = self.browser.find_element_by_id('players')
         self.assertIn('Moshe', players.text)
+
+    def test_change_group_name(self):
+        self.create_group(self.group)
+        self.browser.find_element_by_link_text('Manage').click()
+
+        new_group_name = 'Volleyball with Nevet'
+        self.fill_input_field('Group name', new_group_name, clear=True)
+        self.submit()
+
+        # Check the new name is in the title and the old one is gone
+        header = self.browser.find_element_by_tag_name('h1')
+        self.assertIn(new_group_name, header.text)
+        body_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn(self.group, body_text)

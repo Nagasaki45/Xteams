@@ -11,23 +11,26 @@
 
 <form method="POST">
   {% csrf_token %}
-  {{ formset.management_form }}
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Name</th><th>Score</th><th></th><th></th><th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for form in formset %}
-      <tr>
-        {% for field in form %}
-        <td>{% bootstrap_field field layout='inline' %}</td>
+  <div class="form-group"><label class="control-label" for="id_name">Group name</label><input type="text" name="name" value="{{ form.name.value }}" maxlength="50" class="form-control" placeholder="Group name" title="" required id="id_name"></div>
+  {% for formset in inlines %}
+    {{ formset.management_form }}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Name</th><th>Score</th><th></th><th></th><th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for form in formset %}
+        <tr>
+            {% for field in form %}
+            <td>{% bootstrap_field field layout='inline' %}</td>
+            {% endfor %}
+        </tr>
         {% endfor %}
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+        </tbody>
+    </table>
+  {% endfor %}
   {% buttons %}
   <input type="submit" class="btn btn-primary form-control" value="Submit changes" />
   {% endbuttons %}

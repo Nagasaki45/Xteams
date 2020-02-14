@@ -1,5 +1,7 @@
 from django import forms
 
+from extra_views import InlineFormSetFactory
+
 from .models import Player
 from . import grouper
 
@@ -18,3 +20,9 @@ class GameForm(forms.Form):
         if self.cleaned_data['number_of_teams'] > self.num_of_players:
             raise forms.ValidationError('Not enough players to create teams.')
         return self.cleaned_data['number_of_teams']
+
+
+class PlayerInlineFormSetFactory(InlineFormSetFactory):
+    model = Player
+    fields = ['name', 'score']
+    factory_kwargs = {'extra': 5}

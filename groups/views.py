@@ -21,10 +21,10 @@ from django.views.generic.detail import DetailView
 
 from braces.views import (JSONResponseMixin, AjaxResponseMixin,
                           UserPassesTestMixin, LoginRequiredMixin)
-from extra_views import InlineFormSetView
+from extra_views import UpdateWithInlinesView
 
 from .models import Group, Player
-from .forms import GameForm
+from .forms import GameForm, PlayerInlineFormSetFactory
 from . import utils
 from . import grouper
 
@@ -70,11 +70,10 @@ def team_up(request, pk):
     return render(request, 'groups/team_up.html', context)
 
 
-class Manage(UserPassesTestMixin, InlineFormSetView):
+class Manage(UserPassesTestMixin, UpdateWithInlinesView):
     model = Group
-    inline_model = Player
-    fields = ['name', 'score']
-    factory_kwargs = {'extra': 5}
+    fields = ['name']
+    inlines = [PlayerInlineFormSetFactory]
     template_name = 'groups/manage.html'
 
     def test_func(self, user):

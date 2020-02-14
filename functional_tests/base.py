@@ -15,9 +15,11 @@ class BaseSeleniumTestCase(StaticLiveServerTestCase):
         xpath = "//a[contains(., '{}')]".format(group_name)
         return self.browser.find_element_by_xpath(xpath)
 
-    def fill_input_field(self, placeholder, content):
+    def fill_input_field(self, placeholder, content, clear=False):
         xpath = "//input[@placeholder='{}']".format(placeholder)
         input_field = self.browser.find_element_by_xpath(xpath)
+        if clear:
+            input_field.clear()
         input_field.send_keys(content)
 
     def login(self, username, password, *, use_navbar_link=False):
