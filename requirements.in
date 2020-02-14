@@ -4,7 +4,7 @@ django
 django-bootstrap3
 django-braces
 django-extra-views
-django-heroku
+dj-database-url
 gunicorn
 psycopg2
 selenium
