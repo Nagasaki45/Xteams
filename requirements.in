@@ -4,5 +4,8 @@ django
 django-bootstrap3
 django-braces
 django-extra-views
+django-heroku
+gunicorn
 psycopg2
 selenium
+whitenoise
