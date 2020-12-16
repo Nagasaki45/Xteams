@@ -1,7 +1,7 @@
 Xteams!
 =======
 
-[![Build Status](https://travis-ci.org/Nagasaki45/Xteams.svg?branch=master)](https://travis-ci.org/Nagasaki45/Xteams)
+[![Build Status](https://travis-ci.com/Nagasaki45/Xteams.svg?branch=master)](https://travis-ci.com/Nagasaki45/Xteams)
 [![codecov](https://codecov.io/gh/Nagasaki45/Xteams/branch/master/graph/badge.svg)](https://codecov.io/gh/Nagasaki45/Xteams)
 
 You want to create teams, but:
