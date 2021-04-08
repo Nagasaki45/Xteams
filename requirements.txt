@@ -4,26 +4,55 @@
 #
 #    pip-compile
 #
-asgiref==3.2.3            # via django
-certifi==2019.11.28       # via requests
-chardet==3.0.4            # via requests
+asgiref==3.2.3
+    # via django
+certifi==2019.11.28
+    # via requests
+chardet==3.0.4
+    # via requests
 codecov==2.0.15
+    # via -r requirements.in
 coverage==5.0.3
+    # via
+    #   -r requirements.in
+    #   codecov
 dj-database-url==0.5.0
+    # via -r requirements.in
 django-bootstrap3==12.0.3
+    # via -r requirements.in
 django-braces==1.14.0
+    # via -r requirements.in
 django-extra-views==0.13.0
-django==3.0.7
+    # via -r requirements.in
+django==3.0.14
+    # via
+    #   -r requirements.in
+    #   django-braces
+    #   django-extra-views
 gunicorn==20.0.4
-idna==2.8                 # via requests
+    # via -r requirements.in
+idna==2.8
+    # via requests
 psycopg2==2.8.4
-pytz==2019.3              # via django
-requests==2.22.0          # via codecov
+    # via -r requirements.in
+pytz==2019.3
+    # via django
+requests==2.22.0
+    # via codecov
 selenium==3.141.0
-six==1.14.0               # via django-braces, django-extra-views
-sqlparse==0.3.0           # via django
-urllib3==1.25.8           # via requests, selenium
+    # via -r requirements.in
+six==1.14.0
+    # via
+    #   django-braces
+    #   django-extra-views
+sqlparse==0.3.0
+    # via django
+urllib3==1.25.8
+    # via
+    #   requests
+    #   selenium
 whitenoise==5.0.1
+    # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
