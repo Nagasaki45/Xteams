@@ -27,10 +27,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'm3i*e8=6o2saz7fvfi@eoc6es0591d-r5q4le
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', True)))
 
-ALLOWED_HOSTS = [
-    'xteams.herokuapp.com',
-]
-
+ALLOWED_HOSTS = []
+hostname = os.environ.get('HOSTNAME')
+if hostname:
+    ALLOWED_HOSTS.append(hostname)
 
 # Application definition
 
