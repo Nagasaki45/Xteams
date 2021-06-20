@@ -1,21 +1,3 @@
-// Xteams! Sport teams management utility
-// Copyright (C) 2014  Tom Gurion
-
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-/////////////////////////////////////////////////
-
 // ajax calls to move players between 'on_the_court', 'on_the_bench' and 'gone_home'
 // dynamically change the counter according to the number of players on the court and on the bench
 
