@@ -1,0 +1,15 @@
+# Ignore everything
+*
+
+# Allow files and directories
+!core
+!groups
+!xteams
+!gunicorn.conf.py
+!LICENSE
+!manage.py
+!requirements.txt
+
+# Ignore unnecessary files inside allowed directories
+# This should go after the allowed directories
+**/__pycache__*
