@@ -2,3 +2,8 @@ __pycache__
 env
 geckodriver.log
 .coverage
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
