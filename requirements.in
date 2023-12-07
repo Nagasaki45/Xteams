@@ -1,11 +1,8 @@
-codecov
-coverage
 django
 django-bootstrap3
 django-braces
 django-extra-views
 dj-database-url
 gunicorn
-psycopg2
-selenium
+psycopg2-binary
 whitenoise
