@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import dj_database_url
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -82,16 +84,7 @@ WSGI_APPLICATION = 'xteams.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'xteams',
-        'USER': 'postgres',
-        'PASSWORD': os.getenv('RDS_PASSWORD') or '',
-        'HOST': os.getenv('RDS_HOSTNAME') or 'localhost',
-        'PORT': '5432',
-    }
-}
+DATABASES = {'default': dj_database_url.config()}
 
 
 # Password validation
