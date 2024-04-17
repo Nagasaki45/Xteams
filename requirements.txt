@@ -19,8 +19,10 @@ django-braces==1.14.0
     # via -r requirements.in
 django-extra-views==0.13.0
     # via -r requirements.in
-gunicorn==20.0.4
+gunicorn==22.0.0
     # via -r requirements.in
+packaging==24.0
+    # via gunicorn
 psycopg2-binary==2.9.9
     # via -r requirements.in
 pytz==2019.3
@@ -29,10 +31,7 @@ six==1.14.0
     # via
     #   django-braces
     #   django-extra-views
-sqlparse==0.3.0
+sqlparse==0.5.0
     # via django
 whitenoise==5.0.1
     # via -r requirements.in
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
