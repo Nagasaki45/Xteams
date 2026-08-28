@@ -83,8 +83,14 @@ WSGI_APPLICATION = 'xteams.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-DATABASES = {'default': dj_database_url.config()}
+#
+# Use a repository-local SQLite database for development. Deployments can
+# override this by setting DATABASE_URL to a PostgreSQL connection URL.
+DATABASES = {
+    'default': dj_database_url.config(
+        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
+    ),
+}
 
 
 # Password validation

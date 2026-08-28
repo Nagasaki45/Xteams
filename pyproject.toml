@@ -1,0 +1,23 @@
+[project]
+name = "xteams"
+version = "0.1.0"
+description = "Create balanced teams from player scores."
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+    "Django==3.2.4",
+    "django-bootstrap3==12.0.3",
+    "django-braces==1.14.0",
+    "django-extra-views==0.13.0",
+    "dj-database-url==0.5.0",
+    "gunicorn==22.0.0",
+    "whitenoise==5.0.1",
+]
+
+[project.optional-dependencies]
+postgres = [
+    "psycopg2-binary==2.9.9",
+]
+dev = [
+    "selenium==4.48.0",
+]

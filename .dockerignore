@@ -8,7 +8,9 @@
 !gunicorn.conf.py
 !LICENSE
 !manage.py
-!requirements.txt
+!pyproject.toml
+!uv.lock
+!README.md
 
 # Ignore unnecessary files inside allowed directories
 # This should go after the allowed directories

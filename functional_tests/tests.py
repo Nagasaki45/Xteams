@@ -1,6 +1,7 @@
 import unittest
 
 from django.contrib.auth import get_user_model
+from selenium.webdriver.common.by import By
 
 from .base import BaseSeleniumTestCase
 from groups.models import Group, Player
@@ -27,24 +28,24 @@ class TeamsTest(BaseSeleniumTestCase):
     def change_player_state(self, player, button_text):
         xpath_template = "//a[contains(., '{}')]/span[contains(., '{}')]/p"
         xpath = xpath_template.format(player, button_text)
-        self.browser.find_element_by_xpath(xpath).click()
+        self.browser.find_element(By.XPATH, xpath).click()
 
     def parse_teams(self):
         """When on the 'teams' page, returns a set of sets of players."""
         # Sanity check, to make sure I'm on the right page
-        header = self.browser.find_element_by_tag_name('h1')
+        header = self.browser.find_element(By.TAG_NAME, 'h1')
         self.assertIn('suggested teams', header.text)
 
         teams = set()
-        dom_teams = self.browser.find_elements_by_css_selector('.list-group')
+        dom_teams = self.browser.find_elements(By.CSS_SELECTOR, '.list-group')
         for dom_team in dom_teams:
-            players = dom_team.find_elements_by_tag_name('a')
+            players = dom_team.find_elements(By.TAG_NAME, 'a')
             players.pop(0)  # Remove the team name from the list
             teams.add(frozenset(player.text for player in players))
         return teams
 
     def set_num_of_teams(self, num_of_teams):
-        inputbox = self.browser.find_element_by_id('id_number_of_teams')
+        inputbox = self.browser.find_element(By.ID, 'id_number_of_teams')
         inputbox.clear()
         inputbox.send_keys(num_of_teams)
 
@@ -56,7 +57,7 @@ class TeamsTest(BaseSeleniumTestCase):
         self.assertIn('Xteams!', self.browser.title)
 
         # He clicks the Nahlaot Volleyball group
-        self.browser.find_element_by_link_text('Nahlaot Volleyball').click()
+        self.browser.find_element(By.LINK_TEXT, 'Nahlaot Volleyball').click()
 
         # He move some players to the court and creates teams
         self.change_player_state('Noam', 'Move to court')
@@ -79,7 +80,7 @@ class TeamsTest(BaseSeleniumTestCase):
         self.set_num_of_teams(3)
         self.submit()
 
-        error = self.browser.find_element_by_css_selector('.alert-danger')
+        error = self.browser.find_element(By.CSS_SELECTOR, '.alert-danger')
         self.assertIn('not enough players', error.text.lower())
 
     def test_sane_team_up(self):
@@ -110,7 +111,7 @@ class AccountManagementTest(BaseSeleniumTestCase):
     def test_register(self):
         self.assertUserLoggedOut()
 
-        self.browser.find_element_by_link_text('Register').click()
+        self.browser.find_element(By.LINK_TEXT, 'Register').click()
         self.fill_input_field('Username', 'Moshe')
         self.fill_input_field('Password', 'secret_password')
         self.fill_input_field('Password confirmation', 'secret_password')
@@ -127,7 +128,7 @@ class AccountManagementTest(BaseSeleniumTestCase):
         self.assertInHomePage()
         self.assertUserLoggedIn()
 
-        self.browser.find_element_by_link_text('Logout').click()
+        self.browser.find_element(By.LINK_TEXT, 'Logout').click()
         self.assertUserLoggedOut()
 
 
@@ -144,47 +145,47 @@ class GroupManagementTest(BaseSeleniumTestCase):
         self.create_group(self.group, use_homepage_button=True)
 
         # Moshe was redirected to the group page
-        header = self.browser.find_element_by_tag_name('h1')
+        header = self.browser.find_element(By.TAG_NAME, 'h1')
         self.assertIn(self.group, header.text)
 
         # Moshe goes back to the homepage to make he manage the group
-        self.browser.find_element_by_link_text('Xteams!').click()
+        self.browser.find_element(By.LINK_TEXT, 'Xteams!').click()
         group_element = self.find_group_element(self.group)
         self.assertIn('Managed', group_element.text)
 
     def test_manage_group_add_players(self):
         self.create_group(self.group)
-        self.browser.find_element_by_link_text('Manage').click()
+        self.browser.find_element(By.LINK_TEXT, 'Manage').click()
 
         self.fill_input_field('Name', 'Moshe')
         self.fill_input_field('Score', 1000)
         self.submit()
 
         # There is a player for Moshe
-        players = self.browser.find_element_by_id('players')
+        players = self.browser.find_element(By.ID, 'players')
         self.assertIn('Moshe', players.text)
 
     def test_change_group_name(self):
         self.create_group(self.group)
-        self.browser.find_element_by_link_text('Manage').click()
+        self.browser.find_element(By.LINK_TEXT, 'Manage').click()
 
         new_group_name = 'Volleyball with Nevet'
         self.fill_input_field('Group name', new_group_name, clear=True)
         self.submit()
 
         # Check the new name is in the title and the old one is gone
-        header = self.browser.find_element_by_tag_name('h1')
+        header = self.browser.find_element(By.TAG_NAME, 'h1')
         self.assertIn(new_group_name, header.text)
-        body_text = self.browser.find_element_by_tag_name('body').text
+        body_text = self.browser.find_element(By.TAG_NAME, 'body').text
         self.assertNotIn(self.group, body_text)
 
     def test_delete_group(self):
         self.create_group(self.group)
-        self.browser.find_element_by_link_text('Manage').click()
+        self.browser.find_element(By.LINK_TEXT, 'Manage').click()
 
-        self.browser.find_element_by_link_text('Delete group').click()
+        self.browser.find_element(By.LINK_TEXT, 'Delete group').click()
         self.submit()
 
         # Check the group name doesn't appear in the homepage
-        body_text = self.browser.find_element_by_tag_name('body').text
+        body_text = self.browser.find_element(By.TAG_NAME, 'body').text
         self.assertNotIn(self.group, body_text)
