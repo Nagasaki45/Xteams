@@ -29,6 +29,7 @@ class TeamsTest(BaseSeleniumTestCase):
         xpath_template = "//a[contains(., '{}')]/span[contains(., '{}')]/p"
         xpath = xpath_template.format(player, button_text)
         self.browser.find_element(By.XPATH, xpath).click()
+        self.wait_for_ajax()
 
     def parse_teams(self):
         """When on the 'teams' page, returns a set of sets of players."""
@@ -128,7 +129,7 @@ class AccountManagementTest(BaseSeleniumTestCase):
         self.assertInHomePage()
         self.assertUserLoggedIn()
 
-        self.browser.find_element(By.LINK_TEXT, 'Logout').click()
+        self.browser.find_element(By.XPATH, "//button[contains(., 'Logout')]").click()
         self.assertUserLoggedOut()
 
 

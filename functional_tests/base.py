@@ -3,6 +3,7 @@ import os
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class BaseSeleniumTestCase(StaticLiveServerTestCase):
@@ -48,13 +49,22 @@ class BaseSeleniumTestCase(StaticLiveServerTestCase):
     def submit(self):
         self.browser.find_element(By.XPATH, "//input[@type='submit']").click()
 
+    def wait_for_ajax(self):
+        WebDriverWait(self.browser, 5).until(
+            lambda browser: browser.execute_script('return jQuery.active === 0;')
+        )
+
     def assertUserLoggedOut(self):
-        body_text = self.browser.find_element(By.TAG_NAME, 'body').text
+        body_text = WebDriverWait(self.browser, 5).until(
+            lambda browser: browser.find_element(By.TAG_NAME, 'body').text
+        )
         self.assertIn('Login', body_text)
         self.assertNotIn('Logout', body_text)
 
     def assertUserLoggedIn(self):
-        body_text = self.browser.find_element(By.TAG_NAME, 'body').text
+        body_text = WebDriverWait(self.browser, 5).until(
+            lambda browser: browser.find_element(By.TAG_NAME, 'body').text
+        )
         self.assertIn('Logout', body_text)
         self.assertNotIn('Login', body_text)
 

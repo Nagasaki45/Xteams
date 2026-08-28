@@ -1,11 +1,11 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.views.generic.edit import CreateView, DeleteView, FormMixin
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 
-from braces.views import (JSONResponseMixin, AjaxResponseMixin,
-                          UserPassesTestMixin, LoginRequiredMixin)
+from braces.views import UserPassesTestMixin, LoginRequiredMixin
 from extra_views import UpdateWithInlinesView
 
 from .models import Group, Player
@@ -71,10 +71,10 @@ class Delete(DeleteView):
     success_url = reverse_lazy('groups:list')
 
 
-class ChangeState(JSONResponseMixin, AjaxResponseMixin, View):
-    """Ajax view to change the players state."""
-    def post_ajax(self, request):
+class ChangeState(View):
+    """Update a player's state and return an empty JSON response."""
+    def post(self, request):
         player = get_object_or_404(Player, pk=request.POST['player_pk'])
         player.state_name = request.POST['new_state']
         player.save()
-        return self.render_json_response({})
+        return JsonResponse({})

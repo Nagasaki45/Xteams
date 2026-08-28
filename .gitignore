@@ -4,5 +4,6 @@ __pycache__
 build/
 dist/
 db.sqlite3
+staticfiles/
 geckodriver.log
 .coverage

@@ -35,7 +35,12 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}?next=/">Logout</a></li>
+        <li>
+          <form action="{% url 'logout' %}?next=/" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link navbar-btn">Logout</button>
+          </form>
+        </li>
         {% else %}
         <li><a href="{% url 'login' %}">Login</a></li>
         <li><a href="{% url 'register' %}">Register</a></li>
